@@ -1,58 +1,126 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <style>
-    /* 메뉴 스타일링을 위한 CSS */
-    ul.menu {
-      width: 15%;
-      height: 100vh;
-      float: left;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      background-color: #f1f1f1;
-    }
+    <style>
 
-    ul.menu li {
-      display: block;
-    }
+        .menu-bar{
+            position: relative;
+            width: 15%;
+            height: 100vh;
+            float: left;
+            margin:0;
+        }
 
-    ul.menu li a {
-      display: block;
-      color: #333;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-    }
 
-    ul.menu li a:hover {
-      background-color: #ddd;
-    }
+        /* 메뉴 스타일링을 위한 CSS */
+        ul.menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f1f1f1;
+        }
 
-    .hide {
-      display: none; /* 숨김 처리를 위해 display를 none으로 설정 */
-    }
-  </style>
+        ul.menu li {
+            display: block;
+        }
+
+        ul.menu li a {
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        ul.menu li a:hover {
+            background-color: #ddd;
+        }
+
+        .hide_width {
+            width: 0;
+            /* 숨김 처리를 위해 display를 none으로 설정 */
+        }
+
+        .hide_display{
+            display: none;
+        }
+
+        .hide_img{
+            content: url("icons/right-arrow.png");
+        }
+
+    
+        .search-container {
+            margin: 5px;
+            padding: 5px;
+            border: 2px solid #000;
+            border-radius: 5%;
+            display: flex;
+            
+        }
+
+        .search-container input[type="text"] {
+            flex: 1;
+            outline: none;
+            border: none;
+            padding: 5px;
+            font-size: 16px;
+            background: none;
+        }
+
+        .search-container button {
+            padding: 5px 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            float: right;
+        }
+
+        #folderButton{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            transform: translateX(100%);
+        }
+
+    </style>
 </head>
+
 <body>
 
-     <button id="toggleButton">메뉴 토글</button>
-  <ul class="menu" id="menu">
-    <li><a href="#home">홈</a></li>
-    <li><a href="#about">소개</a></li>
-    <li><a href="#services">서비스</a></li>
-    <li><a href="#contact">연락처</a></li>
-  </ul>
+    <div class="menu-bar" id="menu-bar">
+        <button id="folderButton"><img id="buttonIcon" src="icons/left-arrow.png" width=10px; height=10px; ></button>
+        <ul class="menu" id="menu">
+            <div class="search-container">
+                <input type="text" placeholder="검색">
+                <button type="submit"><img src ="icons/search.png" width="10px" height="10px"></button>
+              </div>
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#services">서비스</a></li>
+            <li><a href="#contact">연락처</a></li>
+            
+        </ul>
+    </div>
+    
 
-  <script>
-    const toggleButton = document.getElementById('toggleButton');
-    const menu = document.getElementById('menu');
+    <script>
+        const folderButton = document.getElementById('folderButton');
+        const buttonIcon = document.getElementById('buttonIcon')
+        const menu = document.getElementById('menu');
+        const menu_bar = document.getElementById('menu-bar');
 
-    toggleButton.addEventListener('click', function() {
-      menu.classList.toggle('hide');
-    });
-  </script>
+        folderButton.addEventListener('click', function () {
+            menu_bar.classList.toggle('hide_width');
+            menu.classList.toggle('hide_display')
+            buttonIcon.classList.toggle('hide_img')
+        });
+    </script>
 
 
 </body>
+
 </html>

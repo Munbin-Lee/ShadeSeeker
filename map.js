@@ -10,6 +10,8 @@ function generateMap(lat, lng) {
 
   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
   map = new kakao.maps.Map(mapContainer, mapOption);
+
+  // 테스트용
   generateMarker(lat, lng);
 }
 

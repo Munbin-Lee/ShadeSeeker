@@ -6,15 +6,31 @@
 
         .menu-bar{
             position: relative;
+
             width: 15%;
             height: 100vh;
             float: left;
             margin:0;
         }
+        
+        .menu-bar ul.side-bar{
+            display: inline-block;
+            width: 25px;
+            height: 100vh;
+            background-color: #aaaaaa;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;  
+        }
+
 
 
         /* 메뉴 스타일링을 위한 CSS */
-        ul.menu {
+        .menu-bar ul.menu {
+            display: inline-block;
+            position : absolute;
+            left: 25px;
+
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -22,11 +38,11 @@
             background-color: #f1f1f1;
         }
 
-        ul.menu li {
+        .menu-bar ul.menu li {
             display: block;
         }
 
-        ul.menu li a {
+        .menu-bar ul.menu li a {
             display: block;
             color: #333;
             text-align: center;
@@ -34,12 +50,12 @@
             text-decoration: none;
         }
 
-        ul.menu li a:hover {
+        .menu-bar ul.menu li a:hover {
             background-color: #ddd;
         }
 
         .hide_width {
-            width: 0;
+            width: 20px;
             /* 숨김 처리를 위해 display를 none으로 설정 */
         }
 
@@ -78,33 +94,36 @@
             float: right;
         }
 
-        #folderButton{
+        .menu-bar button.folderButton{
             position: absolute;
             top: 50%;
             right: 0;
             transform: translateY(-50%);
             transform: translateX(100%);
         }
-
     </style>
 </head>
 
 <body>
+        <div class="menu-bar" id="menu-bar">
+            <button class="folderButton" id="folderButton"><img id="buttonIcon" src="icons/left-arrow.png" width=10px; height=10px; ></button>
+            <ul class="side-bar" id="side-bar">
+                <li><img src="icons/pknu.png" width="20px" height="20px"></li>
+                <li><img src="icons/location.png" width="20px" height="20px"></li>
+                <li><img src="icons/statistic.png" width="20px" height="20px"></li>
+            </ul>
 
-    <div class="menu-bar" id="menu-bar">
-        <button id="folderButton"><img id="buttonIcon" src="icons/left-arrow.png" width=10px; height=10px; ></button>
-        <ul class="menu" id="menu">
-            <div class="search-container">
-                <input type="text" placeholder="검색">
-                <button type="submit"><img src ="icons/search.png" width="10px" height="10px"></button>
-              </div>
-            <li><a href="#home">홈</a></li>
-            <li><a href="#about">소개</a></li>
-            <li><a href="#services">서비스</a></li>
-            <li><a href="#contact">연락처</a></li>
-            
-        </ul>
-    </div>
+            <ul class="menu" id="menu">
+                <div class="search-container">
+                    <input type="text" placeholder="검색">
+                    <button type="submit"><img src ="icons/search.png" width="10px" height="10px"></button>
+                  </div>
+                <li><a href="#home">홈</a></li>
+                <li><a href="#about">소개</a></li>
+                <li><a href="#services">서비스</a></li>
+                <li><a href="#contact">연락처</a></li>    
+            </ul>
+        </div>
     
 
     <script>
@@ -114,8 +133,8 @@
         const menu_bar = document.getElementById('menu-bar');
 
         folderButton.addEventListener('click', function () {
-            menu_bar.classList.toggle('hide_width');
             menu.classList.toggle('hide_display')
+            menu_bar.classList.toggle('hide_width');
             buttonIcon.classList.toggle('hide_img')
         });
     </script>

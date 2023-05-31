@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* 메뉴 스타일링을 위한 CSS */
+    ul.menu {
+      width: 15%;
+      height: 100vh;
+      float: left;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+    }
+
+    ul.menu li {
+      display: block;
+    }
+
+    ul.menu li a {
+      display: block;
+      color: #333;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    ul.menu li a:hover {
+      background-color: #ddd;
+    }
+
+    .hide {
+      display: none; /* 숨김 처리를 위해 display를 none으로 설정 */
+    }
+  </style>
+</head>
+<body>
+
+     <button id="toggleButton">메뉴 토글</button>
+  <ul class="menu" id="menu">
+    <li><a href="#home">홈</a></li>
+    <li><a href="#about">소개</a></li>
+    <li><a href="#services">서비스</a></li>
+    <li><a href="#contact">연락처</a></li>
+  </ul>
+
+  <script>
+    const toggleButton = document.getElementById('toggleButton');
+    const menu = document.getElementById('menu');
+
+    toggleButton.addEventListener('click', function() {
+      menu.classList.toggle('hide');
+    });
+  </script>
+
+
+</body>
+</html>

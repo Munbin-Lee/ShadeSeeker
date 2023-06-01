@@ -50,7 +50,7 @@
     display: block;
     color: #333;
     text-align: center;
-    padding: 14px 16px;
+    padding: 14px 10px;
     text-decoration: none;
 }
 
@@ -60,6 +60,8 @@
 
 /* 토글 버튼 */
 .menu-bar button.folderButton {
+    width: 20px;
+    padding: 0;
     position: absolute;
     top: 50%;
     right: 0;
@@ -75,8 +77,7 @@
 .search-container {
     margin: 5px;
     padding: 5px;
-    border: 2px solid #000;
-    border-radius: 5%;
+    border: 2px solid #000 ;
     display: flex;
 
 }
@@ -91,9 +92,45 @@
 }
 
 .search-container button {
-    padding: 5px 10px;
+    padding: 5px;
     background: none;
     border: none;
     cursor: pointer;
     float: right;
+}
+
+/* 메뉴 탭 */
+.menu_tab{
+    width: 25px;
+    padding: 0;
+    margin:0;
+    position: absolute;
+    right: 0;
+    transform: translateX(100%);
+
+
+    list-style-type : none;
+}
+
+
+.menu_tab li button{
+    padding: 0;
+    margin: 0;
+    width: 25px;
+    height: 140px;
+    background-color: #aaaaaa;
+    border-left: transparent;    
+}
+
+.menu_tab li button a{
+    text-align: center;
+    line-height: 0; /* 텍스트 높이에 따라 조정 */
+    height: 100px;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+
+
+.clicked_tab {
+    background-color: #bbbbbb;
 }

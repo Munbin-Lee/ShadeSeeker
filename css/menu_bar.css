@@ -59,7 +59,7 @@
 }
 
 /* 토글 버튼 */
-.menu-bar button.folderButton {
+.menu-bar button.folderButton {    
     width: 20px;
     padding: 0;
     position: absolute;
@@ -133,4 +133,17 @@
 
 .clicked_tab {
     background-color: #bbbbbb;
+}
+
+.menu .search_result_table table {
+    width: 100%;
+    padding: 20px;
+    border-collapse: collapse;
+}
+.menu .search_result_table th, td {
+    padding: 10px;
+}
+
+.menu .search_result_table thead {
+    border-bottom: 2px solid black;
 }

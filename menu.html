@@ -9,40 +9,48 @@
 
 <body>
     <div class="menu-bar" id="menu-bar">
-        
         <ul class="side-bar" id="side-bar">
             <li id="pknu"><img src="icons/pknu.png" width="30px" height="30px"></li>
-            <li id="location" ><img  src="icons/location.png" width="20px" height="20px"></li>
-            <li id="statistic"><img  src="icons/statistic.png" width="20px" height="20px"></li>
+            <li id="location"><img src="icons/location.png" width="20px" height="20px"></li>
+            <li id="statistic"><img src="icons/statistic.png" width="20px" height="20px"></li>
         </ul>
-
         <ul class="menu" id="menu">
             <ul class="menu_tab">
                 <li id="naming_search"><button><a>시설명 검색</a> </button></li>
                 <li id="location_search"><button><a>위치 검색</a></button></li>
             </ul>
-            
             <div class="search-container">
                 <input type="text" placeholder="검색">
                 <button type="submit"><img src="icons/search.png" width="10px" height="10px"></button>
             </div>
-            <li><a href="#home">홈</a></li>
-            <li><a href="#about">소개</a></li>
-            <li><a href="#services">서비스</a></li>
-            <li><a href="#contact">연락처</a></li>
+            <div class="search_result_table">
+                <table>
+                    <thead>
+                      <tr>
+                        <th>시설</th>
+                        <th>인원수</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>A노인정</td>
+                        <td>30</td>
+                      </tr>
+                      <tr>
+                        <td>B노인정</td>
+                        <td>20</td>
+                      </tr>
+                      <tr>
+                        <td>C경로당</td>
+                        <td>10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                      
+            </div>
         </ul>
-
-        
-
-        <button class="folderButton" id="folderButton" ><img id="buttonIcon" src="icons/left-arrow.png" width=10px; height=10px; ></button>
-
-
-
-
-        
+        <button class="folderButton" id="folderButton"><img id="buttonIcon" src="icons/left-arrow.png" width=10px; height=10px;></button>
     </div>
-
-
     <script>
         const menu = document.getElementById('menu');
         const folderButton = document.getElementById('folderButton');
@@ -59,8 +67,6 @@
             }
         });
     </script>
-
-
 </body>
 
 </html>

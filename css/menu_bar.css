@@ -1,0 +1,99 @@
+ /* 메뉴 스타일링을 위한 CSS */
+ .menu-bar {
+    position: relative;
+    display: flex;
+    height: 100vh;
+    float: left;
+    margin: 0;
+}
+
+.menu-bar ul.side-bar {
+    display: inline-block;
+    height: 100vh;
+    background-color: #aaaaaa;
+    list-style-type : none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+.menu-bar ul.side-bar li{
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.menu-bar ul.side-bar li#pknu{
+    margin-top: 10px;
+    
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+.menu-bar ul.menu {
+    display: inline-block;
+    
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #f1f1f1;
+}
+
+.menu-bar ul.menu li {
+    display: block;
+}
+
+.menu-bar ul.menu li a {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu-bar ul.menu li a:hover {
+    background-color: #ddd;
+}
+
+/* 토글 버튼 */
+.menu-bar button.folderButton {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transform: translateY(-50%);
+    transform: translateX(100%);
+}
+
+
+
+/* 검색창 */
+.search-container {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #000;
+    border-radius: 5%;
+    display: flex;
+
+}
+
+.search-container input[type="text"] {
+    flex: 1;
+    outline: none;
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    background: none;
+}
+
+.search-container button {
+    padding: 5px 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    float: right;
+}

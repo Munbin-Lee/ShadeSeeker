@@ -1,3 +1,10 @@
+const markerImageSize = new kakao.maps.Size(24, 35);
+const markerImage = new kakao.maps.MarkerImage(
+  // "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
+  "icons/marker.png",
+  markerImageSize
+);
+
 let map = null;
 
 function generateMap(lat, lng) {
@@ -21,5 +28,6 @@ function generateMarker(lat, lng) {
   let marker = new kakao.maps.Marker({
     map: map,
     position: markerPosition,
+    image: markerImage,
   });
 }

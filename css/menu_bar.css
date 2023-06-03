@@ -1,5 +1,5 @@
  /* 메뉴 스타일링을 위한 CSS */
- .menu-bar {
+ .side_frame {
     position: relative;
     display: flex;
     height: 100vh;
@@ -7,7 +7,10 @@
     margin: 0;
 }
 
-.menu-bar ul.side-bar {
+
+
+
+.side_frame ul.side_bar {
     display: inline-block;
     height: 100vh;
     background-color: #aaaaaa;
@@ -18,21 +21,36 @@
 }
 
 
-.menu-bar ul.side-bar li{
-    margin-top: 30px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
 
-.menu-bar ul.side-bar li#pknu{
-    margin-top: 10px;
-    
+.side_frame ul.side_bar li#pknu{
+    margin-top: 20px;
     margin-left: 0;
     margin-right: 0;
 }
 
+.side_frame ul.side_bar li img.main_tab_img{
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
 
-.menu-bar ul.menu {
+    cursor: pointer;
+}
+
+
+.side_frame ul.side_bar .main_tab{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+
+.side_frame ul.side_bar .main_tab:checked + label{
+    background-color: #990000;
+}
+.side_frame ul.search_bar {
     display: inline-block;
     
     list-style-type: none;
@@ -42,24 +60,8 @@
     background-color: #f1f1f1;
 }
 
-.menu-bar ul.menu li {
-    display: block;
-}
-
-.menu-bar ul.menu li a {
-    display: block;
-    color: #333;
-    text-align: center;
-    padding: 14px 10px;
-    text-decoration: none;
-}
-
-.menu-bar ul.menu li a:hover {
-    background-color: #ddd;
-}
-
 /* 토글 버튼 */
-.menu-bar button.folderButton {    
+.side_frame button.folderButton {    
     width: 20px;
     padding: 0;
     position: absolute;
@@ -100,7 +102,7 @@
 }
 
 /* 메뉴 탭 */
-.menu_tab{
+.search_tab{
     width: 25px;
     padding: 0;
     margin:0;
@@ -113,7 +115,7 @@
 }
 
 
-.menu_tab li input{
+.search_tab li input{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -122,7 +124,7 @@
     display: none;
 }
 
-.menu_tab li label{
+.search_tab li label{
     width: 25px;
     height: 120px;
     border: 2px solid #ccc;
@@ -139,21 +141,21 @@
     text-orientation: upright;
 }
 
-.menu_tab li input:checked + label{
+.search_tab li input:checked + label{
     background-color: #990000;    
 }
 
 
 /* 검색 결과 표시창 */
-.menu .search_result_table table {
+.search_bar .search_result_table table {
     width: 100%;
     padding: 20px;
     border-collapse: collapse;
 }
-.menu .search_result_table th, td {
+.search_bar .search_result_table th, td {
     padding: 10px;
 }
 
-.menu .search_result_table thead {
+.search_bar .search_result_table thead {
     border-bottom: 2px solid black;
 }

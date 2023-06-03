@@ -8,20 +8,31 @@
 </head>
 
 <body>
-    <div class="menu-bar" id="menu-bar">
-        <ul class="side-bar" id="side-bar">
+    <div class="side_frame" id="side_frame">
+        <ul class="side_bar" id="side_bar">
             <li id="pknu"><img src="icons/pknu.png" width="30px" height="30px"></li>
-            <li id="location"><img src="icons/location.png" width="20px" height="20px"></li>
-            <li id="statistic"><img src="icons/statistic.png" width="20px" height="20px"></li>
+            <li id="location">
+              <input type="radio" name="main_tab" class="main_tab" id="location_tab" checked>
+              <label for="location_tab">
+                <img class="main_tab_img" src="icons/location.png" width="20px" height="20px">
+              </label>
+            </li>
+            <li id="statistic">
+              <input type="radio" name="main_tab" class="main_tab" id="statistic_tab">
+              <label for="statistic_tab">
+                <img class="main_tab_img" src="icons/statistic.png" width="20px" height="20px">
+              </label>
+
+            </li>
         </ul>
-        <ul class="menu" id="menu">
-            <ul class="menu_tab" id="menu_tab">
+        <ul class="search_bar" id="search_bar">
+            <ul class="search_tab" id="search_tab">
                 <li>
-                  <input type="radio" name="menu_tab" class="menu_tab_btn" id="naming_search" checked>
+                  <input type="radio" name="search_tab" class="search_tab_btn" id="naming_search" checked>
                   <label for="naming_search">시설명 검색</label>
                 </li>
                 <li>
-                  <input type="radio" name="menu_tab" class="menu_tab_btn" id="location_search">
+                  <input type="radio" name="search_tab" class="search_tab_btn" id="location_search">
                   <label for="location_search">위치 검색</label></li>
             </ul>
             <div class="search-container">
@@ -57,7 +68,7 @@
         <button class="folderButton" id="folderButton"><img id="buttonIcon" src="icons/left-arrow.png" width=10px; height=10px;></button>
     </div>
     <script>
-        const menu = document.getElementById('menu');
+        const menu = document.getElementById('search_bar');
         const folderButton = document.getElementById('folderButton');
         const btnIcon = document.getElementById('buttonIcon')
 

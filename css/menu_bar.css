@@ -47,9 +47,6 @@
 }
 
 
-.side_frame ul.side_bar .main_tab:checked + label{
-    background-color: #990000;
-}
 .side_frame ul.search_bar {
     display: inline-block;
     
@@ -132,7 +129,7 @@
 
     padding: 0;
     margin: 0;
-    background-color: #aaaaaa;
+    background-color: #ccc;
     border-left: transparent; 
 
     text-align: center;
@@ -142,7 +139,7 @@
 }
 
 .search_tab li input:checked + label{
-    background-color: #990000;    
+    background-color: #f1f1f1;    
 }
 
 

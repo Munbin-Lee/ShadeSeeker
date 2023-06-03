@@ -14,13 +14,13 @@
             <li id="location">
               <input type="radio" name="main_tab" class="main_tab" id="location_tab" checked>
               <label for="location_tab">
-                <img class="main_tab_img" src="icons/location.png" width="20px" height="20px">
+                <img id="location_icon" class="main_tab_img" src="icons/location_clicked.png" width="20px" height="20px">
               </label>
             </li>
             <li id="statistic">
               <input type="radio" name="main_tab" class="main_tab" id="statistic_tab">
               <label for="statistic_tab">
-                <img class="main_tab_img" src="icons/statistic.png" width="20px" height="20px">
+                <img id="statistic_icon" class="main_tab_img" src="icons/statistic.png" width="20px" height="20px">
               </label>
 
             </li>
@@ -74,6 +74,8 @@
         const menu_tab = document.getElementById('menu_tab');
         const main_tab_statistic = document.getElementById('statistic_tab');
         const main_tab_location = document.getElementById('location_tab');
+        const statistic_icon = document.getElementById('statistic_icon');
+        const location_icon = document.getElementById('location_icon');
 
         folderButton.addEventListener('click', function () {
             folderButton.classList.toggle('img_toggle');
@@ -89,10 +91,14 @@
         main_tab_statistic.addEventListener('click', function(){
           menu.style.display = 'none'
           folderButton.style.display = 'none'
+          statistic_icon.src = 'icons/statistic_clicked.png'
+          location_icon.src = 'icons/location.png'
         })
         main_tab_location.addEventListener('click', function(){
           menu.style.display = 'inline-block'
           folderButton.style.display = 'inline-block'
+          statistic_icon.src = 'icons/statistic.png'
+          location_icon.src = 'icons/location_clicked.png'
         })
 
 

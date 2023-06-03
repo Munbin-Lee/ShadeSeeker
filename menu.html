@@ -70,7 +70,10 @@
     <script>
         const menu = document.getElementById('search_bar');
         const folderButton = document.getElementById('folderButton');
-        const btnIcon = document.getElementById('buttonIcon')
+        const btnIcon = document.getElementById('buttonIcon');
+        const menu_tab = document.getElementById('menu_tab');
+        const main_tab_statistic = document.getElementById('statistic_tab');
+        const main_tab_location = document.getElementById('location_tab');
 
         folderButton.addEventListener('click', function () {
             folderButton.classList.toggle('img_toggle');
@@ -83,7 +86,14 @@
             }
         });
 
-        const menu_tab = document.getElementById('menu_tab');
+        main_tab_statistic.addEventListener('click', function(){
+          menu.style.display = 'none'
+          folderButton.style.display = 'none'
+        })
+        main_tab_location.addEventListener('click', function(){
+          menu.style.display = 'inline-block'
+          folderButton.style.display = 'inline-block'
+        })
 
 
 

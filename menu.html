@@ -15,9 +15,14 @@
             <li id="statistic"><img src="icons/statistic.png" width="20px" height="20px"></li>
         </ul>
         <ul class="menu" id="menu">
-            <ul class="menu_tab">
-                <li id="naming_search"><button><a>시설명 검색</a> </button></li>
-                <li id="location_search"><button><a>위치 검색</a></button></li>
+            <ul class="menu_tab" id="menu_tab">
+                <li>
+                  <input type="radio" name="menu_tab" class="menu_tab_btn" id="naming_search" checked>
+                  <label for="naming_search">시설명 검색</label>
+                </li>
+                <li>
+                  <input type="radio" name="menu_tab" class="menu_tab_btn" id="location_search">
+                  <label for="location_search">위치 검색</label></li>
             </ul>
             <div class="search-container">
                 <input type="text" placeholder="검색">
@@ -66,6 +71,12 @@
                 btnIcon.src = 'icons/left-arrow.png'
             }
         });
+
+        const menu_tab = document.getElementById('menu_tab');
+
+
+
+        menu_tab.classList.toggle('clicked_tab');
     </script>
 </body>
 

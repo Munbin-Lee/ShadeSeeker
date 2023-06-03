@@ -113,28 +113,38 @@
 }
 
 
-.menu_tab li button{
-    padding: 0;
-    margin: 0;
-    width: 25px;
-    height: 140px;
-    background-color: #aaaaaa;
-    border-left: transparent;    
+.menu_tab li input{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+    display: none;
 }
 
-.menu_tab li button a{
+.menu_tab li label{
+    width: 25px;
+    height: 120px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+
+    padding: 0;
+    margin: 0;
+    background-color: #aaaaaa;
+    border-left: transparent; 
+
     text-align: center;
-    line-height: 0; /* 텍스트 높이에 따라 조정 */
-    height: 100px;
+    letter-spacing: 2px; /* 원하는 글자 간격 값 */    
     writing-mode: vertical-lr;
     text-orientation: upright;
 }
 
-
-.clicked_tab {
-    background-color: #bbbbbb;
+.menu_tab li input:checked + label{
+    background-color: #990000;    
 }
 
+
+/* 검색 결과 표시창 */
 .menu .search_result_table table {
     width: 100%;
     padding: 20px;

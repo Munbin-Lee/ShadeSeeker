@@ -47,15 +47,15 @@
 }
 
 
-.side_frame ul.search_bar {
-    display: inline-block;
-    
+.search_bar{
     list-style-type: none;
     margin: 0;
     padding: 0;
     height: 100vh;
     background-color: #f1f1f1;
 }
+
+
 
 /* 토글 버튼 */
 .side_frame button.folderButton {    
@@ -72,31 +72,10 @@
 
 
 
-/* 검색창 */
-.search-container {
-    margin: 5px;
-    padding: 5px;
-    border: 2px solid #000 ;
-    display: flex;
 
-}
 
-.search-container input[type="text"] {
-    flex: 1;
-    outline: none;
-    border: none;
-    padding: 5px;
-    font-size: 16px;
-    background: none;
-}
 
-.search-container button {
-    padding: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    float: right;
-}
+
 
 /* 검색 방식 탭 */
 .search_tab{
@@ -142,17 +121,3 @@
     background-color: #f1f1f1;    
 }
 
-
-/* 검색 결과 표시창 */
-.search_bar .search_result_table table {
-    width: 100%;
-    padding: 20px;
-    border-collapse: collapse;
-}
-.search_bar .search_result_table th, td {
-    padding: 10px;
-}
-
-.search_bar .search_result_table thead {
-    border-bottom: 2px solid black;
-}

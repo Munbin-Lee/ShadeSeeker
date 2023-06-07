@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- 단기예보는 1시간씩 데이터를 받아온다. 지도에 현재 날씨를 표현하기 위해서 위치의 좌표와 시간을 실시간으로 업데이트 해야함. -->
+<head>
+    <meta charset="UTF-8">
+    <title>weather</title>
+</head>
+
+<body>
+    <h1>기상청 날씨 API</h1>
+    <h2>부산 남구 날씨</h2>
+    <p class="result">
+        <!-- 20230606, 0600, 25도입니다. -->
+    </p>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>"
+    <script>
+        $.getJSON("https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=wJB5u4Lk3FG95bFUSRipiX938gVIdiLfukQ806B8ql2H2ud9dnffH7kvGhC2yrVevlN0ewKzyeISd3DWI5QVVg%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20230607&base_time=0600&nx=98&ny=75",
+        function (data) {
+            console.log(data);
+            console.log(data.response.body.items.item[3].obsrValue);
+            let item = data.response.body.items.item[3]
+              let content = item.baseDate + "," + item.baseTime +"," + item.obsrValue + "°C입니다";
+            $('.result').text(content);
+        })
+    </script>
+</body>
+
+</html>

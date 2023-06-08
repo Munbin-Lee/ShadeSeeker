@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<!-- 단기예보는 1시간씩 데이터를 받아온다. 지도에 현재 날씨를 표현하기 위해서 위치의 좌표와 시간을 실시간으로 업데이트 해야함. -->
+<html>
+
 <head>
     <meta charset="UTF-8">
     <title>weather</title>
@@ -7,21 +8,83 @@
 
 <body>
     <h1>기상청 날씨 API</h1>
-    <h2>부산 남구 날씨</h2>
+    <h2>위도와 경도에 따른 현재 날씨</h2>
+    <form id="location-form">
+        <label for="latitude">위도:</label>
+        <input type="text" id="latitude" name="latitude">
+        <br>
+        <label for="longitude">경도:</label>
+        <input type="text" id="longitude" name="longitude">
+        <br>
+        <button type="submit">날씨 가져오기</button>
+    </form>
     <p class="result">
         <!-- 20230606, 0600, 25도입니다. -->
     </p>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script>
-        $.getJSON("https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=wJB5u4Lk3FG95bFUSRipiX938gVIdiLfukQ806B8ql2H2ud9dnffH7kvGhC2yrVevlN0ewKzyeISd3DWI5QVVg%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20230607&base_time=0600&nx=98&ny=75",
-        function (data) {
-            console.log(data);
-            console.log(data.response.body.items.item[3].obsrValue);
-            let item = data.response.body.items.item[3]
-              let content = item.baseDate + "," + item.baseTime +"," + item.obsrValue + "°C입니다";
-            $('.result').text(content);
-        })
+        // LCC DFS 좌표변환을 위한 기초 자료
+        var RE = 6371.00877; // 지구 반경(km)
+        var GRID = 5.0; // 격자 간격(km)
+        var SLAT1 = 30.0; // 투영 위도1(degree)
+        var SLAT2 = 60.0; // 투영 위도2(degree)
+        var OLON = 126.0; // 기준점 경도(degree)
+        var OLAT = 38.0; // 기준점 위도(degree)
+        var XO = 43; // 기준점 X좌표(GRID)
+        var YO = 136; // 기준점 Y좌표(GRID)
+
+        function convertToGrid(v1, v2) {
+            var DEGRAD = Math.PI / 180.0;
+            var RADDEG = 180.0 / Math.PI;
+
+            var re = RE / GRID;
+            var slat1 = SLAT1 * DEGRAD;
+            var slat2 = SLAT2 * DEGRAD;
+            var olon = OLON * DEGRAD;
+            var olat = OLAT * DEGRAD;
+
+            var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+            sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
+            var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+            sf = Math.pow(sf, sn) * Math.cos(slat1) / sn;
+            var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
+            ro = re * sf / Math.pow(ro, sn);
+            var rs = {};
+
+            rs['lat'] = v1;
+            rs['lng'] = v2;
+            var ra = Math.tan(Math.PI * 0.25 + (v1) * DEGRAD * 0.5);
+            ra = re * sf / Math.pow(ra, sn);
+            var theta = v2 * DEGRAD - olon;
+            if (theta > Math.PI) theta -= 2.0 * Math.PI;
+            if (theta < -Math.PI) theta += 2.0 * Math.PI;
+            theta *= sn;
+            rs['nx'] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
+            rs['ny'] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+
+            return rs;
+        }
+
+        $('#location-form').submit(function (event) {
+            event.preventDefault();
+            let v1 = parseFloat($('#latitude').val()); // 문자열을 숫자로 변환
+            let v2 = parseFloat($('#longitude').val()); // 문자열을 숫자로 변환
+
+            let gridCoordinates = convertToGrid(v1, v2);
+            let nx = gridCoordinates.nx;
+            let ny = gridCoordinates.ny;
+
+            let apiURL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=wJB5u4Lk3FG95bFUSRipiX938gVIdiLfukQ806B8ql2H2ud9dnffH7kvGhC2yrVevlN0ewKzyeISd3DWI5QVVg%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20230608&base_time=0600&nx=" + nx + "&ny=" + ny;
+
+            $.getJSON(apiURL, function (data) {
+                console.log(data);
+                console.log(data.response.body.items.item[3].obsrValue);
+                let item = data.response.body.items.item[3];
+                let content = item.baseDate + ", " + item.baseTime + ", " + item.obsrValue + "°C입니다";
+                $('.result').text(content);
+            });
+        });
     </script>
 </body>
 

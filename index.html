@@ -15,7 +15,7 @@
         overflow: hidden;
       }
 
-      .main_page {
+      .map {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -24,8 +24,12 @@
       }
     </style>
   </head>
-  <body>     
-    <div class="main_page" id="main_page"><object data="map.html" type="text/html" width="100%" height="100%"></object></div>
+  <body>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>
+    <script src="map.js"></script>
+    <script src="geolocation.js"></script>
+    <script src="shelter.js"></script>
+    <div class="map" id="map"><object data="map.html" type="text/html" width="100%" height="100%"></object></div>
     <div class="side_frame" id="side_frame">
       <ul class="side_bar" id="side_bar">
         <li id="pknu"><img src="icons/pknu.png" width="30px" height="30px" /></li>
@@ -68,7 +72,7 @@
       const main_tab_location = document.getElementById("location_tab");
       const statistic_icon = document.getElementById("statistic_icon");
       const location_icon = document.getElementById("location_icon");
-      const main_page = document.getElementById("main_page");
+      const map = document.getElementById("map");
       const search_tab = document.getElementById("search_tab");
 
       const search_bar = document.getElementById("search_bar");
@@ -92,7 +96,7 @@
         menu.style.display = "inline-block";
         folderButton.style.display = "inline-block";
         search_tab.style.display = "inline-block";
-        main_page.style.display = "inline-block";
+        map.style.display = "inline-block";
 
         statistic_icon.src = "icons/statistic.png";
         location_icon.src = "icons/location_clicked.png";
@@ -101,7 +105,7 @@
         menu.style.display = "none";
         search_tab.style.display = "none";
         folderButton.style.display = "none";
-        main_page.style.display = "none";
+        map.style.display = "none";
 
         statistic_icon.src = "icons/statistic_clicked.png";
         location_icon.src = "icons/location.png";

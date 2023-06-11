@@ -90,6 +90,12 @@
                   option.text = district;
                   combo2.appendChild(option);
                 });
+
+
+                
+
+
+
                 
                 // 두 번쨰 콤보박스 갱신 이벤트
                 combo1.addEventListener("change", function() {
@@ -100,7 +106,8 @@
                             var option = document.createElement("option");
                               option.value = selectedCity;
                               option.text = selectedCity;
-                              combo2.appendChild(option);  
+                              combo2.appendChild(option);
+                            
                     }
                     else if(Object.keys(item)[0] === selectedCity){
                             item[selectedCity].forEach(function(district) {

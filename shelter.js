@@ -5,9 +5,10 @@ const numOfRows = "1000";
 const type = "json";
 const year = "2023";
 
-function getShelterPositionAndGenerateMarker(pageNo) {
-  // 원래는 62로 해야하지만, 테스트 퍼포먼스를 위해 2로 설정
-  for (let i = 1; i <= 2; i++) {
+let shelters = [];
+
+function getShelterInfo() {
+  for (let i = 1; i <= 62; i++) {
     let url =
       base +
       "serviceKey=" +
@@ -24,11 +25,7 @@ function getShelterPositionAndGenerateMarker(pageNo) {
     fetch(url)
       .then((res) => res.json())
       .then((resJson) => {
-        let shelters = resJson.HeatWaveShelter[1].row;
-        console.log(shelters.length);
-        shelters.forEach((shelter) => {
-          generateMarker(shelter.la, shelter.lo);
-        });
+        shelters.push(resJson.HeatWaveShelter[1].row);
       });
   }
 }

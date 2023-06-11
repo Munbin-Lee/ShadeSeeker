@@ -1,25 +1,19 @@
 const markerImageSize = new kakao.maps.Size(24, 35);
-const markerImage = new kakao.maps.MarkerImage(
-  // "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-  "icons/marker.png",
-  markerImageSize
-);
+const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
 
 let map = null;
+let places = null;
 
 function generateMap(lat, lng) {
   console.log("map generate: ", lat, lng);
-  let mapContainer = document.getElementById("map"); // 지도를 표시할 div
+  let mapContainer = document.getElementById("map");
   let mapOption = {
-    center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
-    level: 3, // 지도의 확대 레벨
+    center: new kakao.maps.LatLng(lat, lng),
+    level: 3,
   };
 
-  // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
   map = new kakao.maps.Map(mapContainer, mapOption);
-
-  // 테스트용
-  generateMarker(lat, lng);
+  places = new kakao.maps.services.Places();
 }
 
 function generateMarker(lat, lng) {
@@ -30,4 +24,20 @@ function generateMarker(lat, lng) {
     position: markerPosition,
     image: markerImage,
   });
+}
+
+function search(keyword) {
+  places.keywordSearch(keyword, searchCallback);
+}
+
+function searchCallback(data, status, pagination) {
+  if (status === kakao.maps.services.Status.OK) {
+    alert("검색 성공");
+  } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+    alert("검색 결과가 존재하지 않습니다.");
+    return;
+  } else if (status === kakao.maps.services.Status.ERROR) {
+    alert("검색 결과 중 오류가 발생했습니다.");
+    return;
+  }
 }

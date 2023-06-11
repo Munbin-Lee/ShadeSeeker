@@ -1,7 +1,7 @@
 const markerImageSize = new kakao.maps.Size(24, 35);
 const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
 
-let currentMap = null;
+let map = null;
 let places = null;
 
 function generateMap(lat, lng) {
@@ -12,7 +12,7 @@ function generateMap(lat, lng) {
     level: 3,
   };
 
-  currentMap = new kakao.maps.Map(mapContainer, mapOption);
+  map = new kakao.maps.Map(mapContainer, mapOption);
   places = new kakao.maps.services.Places();
 }
 
@@ -20,7 +20,7 @@ function generateMarker(lat, lng) {
   console.log("marker generate:", lat, lng);
   let markerPosition = new kakao.maps.LatLng(lat, lng);
   let marker = new kakao.maps.Marker({
-    map: currentMap,
+    map: map,
     position: markerPosition,
     image: markerImage,
   });

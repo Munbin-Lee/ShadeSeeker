@@ -84,7 +84,7 @@ function getWeather(lat,lon, imgElement, textElement){
         if (weather == 0){imgElement.src = 'icons/cloudy.png';}
         else {imgElement.src = 'icons/rain.png';}
 
-        textElement.textContent = content
+        textElement.textContent = " " + content + " °C";
     });
 
    }     

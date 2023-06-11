@@ -1,21 +1,16 @@
 const markerImageSize = new kakao.maps.Size(24, 35);
-const markerImage = new kakao.maps.MarkerImage(
-  // "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-  "icons/marker.png",
-  markerImageSize
-);
+const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
 
 let map = null;
 
 function generateMap(lat, lng) {
   console.log("map generate: ", lat, lng);
-  let mapContainer = document.getElementById("map"); // 지도를 표시할 div
+  let mapContainer = document.getElementById("map");
   let mapOption = {
-    center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
-    level: 3, // 지도의 확대 레벨
+    center: new kakao.maps.LatLng(lat, lng),
+    level: 3,
   };
 
-  // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
   map = new kakao.maps.Map(mapContainer, mapOption);
 }
 

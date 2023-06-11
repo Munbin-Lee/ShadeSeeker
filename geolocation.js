@@ -1,6 +1,6 @@
 function success({ coords }) {
-  const lat = coords.latitude; // 위도
-  const lng = coords.longitude; // 경도
+  const lat = coords.latitude;
+  const lng = coords.longitude;
   console.log("user position:", lat, lng);
   generateMap(lat, lng);
 }

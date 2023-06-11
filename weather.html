@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>weather</title>
@@ -24,38 +25,38 @@
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script>
         // LCC DFS 좌표변환을 위한 기초 자료
-        var RE = 6371.00877; // 지구 반경(km)
-        var GRID = 5.0; // 격자 간격(km)
-        var SLAT1 = 30.0; // 투영 위도1(degree)
-        var SLAT2 = 60.0; // 투영 위도2(degree)
-        var OLON = 126.0; // 기준점 경도(degree)
-        var OLAT = 38.0; // 기준점 위도(degree)
-        var XO = 43; // 기준점 X좌표(GRID)
-        var YO = 136; // 기준점 Y좌표(GRID)
+        let RE = 6371.00877; // 지구 반경(km)
+        let GRID = 5.0; // 격자 간격(km)
+        let SLAT1 = 30.0; // 투영 위도1(degree)
+        let SLAT2 = 60.0; // 투영 위도2(degree)
+        let OLON = 126.0; // 기준점 경도(degree)
+        let OLAT = 38.0; // 기준점 위도(degree)
+        let XO = 43; // 기준점 X좌표(GRID)
+        let YO = 136; // 기준점 Y좌표(GRID)
 
         function convertToGrid(v1, v2) {
-            var DEGRAD = Math.PI / 180.0;
-            var RADDEG = 180.0 / Math.PI;
+            let DEGRAD = Math.PI / 180.0;
+            let RADDEG = 180.0 / Math.PI;
 
-            var re = RE / GRID;
-            var slat1 = SLAT1 * DEGRAD;
-            var slat2 = SLAT2 * DEGRAD;
-            var olon = OLON * DEGRAD;
-            var olat = OLAT * DEGRAD;
+            let re = RE / GRID;
+            let slat1 = SLAT1 * DEGRAD;
+            let slat2 = SLAT2 * DEGRAD;
+            let olon = OLON * DEGRAD;
+            let olat = OLAT * DEGRAD;
 
-            var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+            let sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
             sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
-            var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+            let sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
             sf = Math.pow(sf, sn) * Math.cos(slat1) / sn;
-            var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
+            let ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
             ro = re * sf / Math.pow(ro, sn);
-            var rs = {};
+            let rs = {};
 
             rs['lat'] = v1;
             rs['lng'] = v2;
-            var ra = Math.tan(Math.PI * 0.25 + (v1) * DEGRAD * 0.5);
+            let ra = Math.tan(Math.PI * 0.25 + (v1) * DEGRAD * 0.5);
             ra = re * sf / Math.pow(ra, sn);
-            var theta = v2 * DEGRAD - olon;
+            let theta = v2 * DEGRAD - olon;
             if (theta > Math.PI) theta -= 2.0 * Math.PI;
             if (theta < -Math.PI) theta += 2.0 * Math.PI;
             theta *= sn;
@@ -74,27 +75,48 @@
             let nx = gridCoordinates.nx;
             let ny = gridCoordinates.ny;
 
-            let apiURL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=wJB5u4Lk3FG95bFUSRipiX938gVIdiLfukQ806B8ql2H2ud9dnffH7kvGhC2yrVevlN0ewKzyeISd3DWI5QVVg%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20230610&base_time=1800&nx=" + nx + "&ny=" + ny;
+            let apiURL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=wJB5u4Lk3FG95bFUSRipiX938gVIdiLfukQ806B8ql2H2ud9dnffH7kvGhC2yrVevlN0ewKzyeISd3DWI5QVVg%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20230611&base_time=1500&nx=" + nx + "&ny=" + ny;
 
             $.getJSON(apiURL, function (data) {
                 console.log(data);
                 console.log(data.response.body.items.item[3].obsrValue);
                 let item = data.response.body.items.item[3];
-                let content = item.baseDate + ", " + item.baseTime + ", " + item.obsrValue + "°C입니다";
-                $('.result').text(content);
+                
+                let content = item.obsrValue + "°C";
+                let contentElement = $("<span>").text(content);
+                let imageElement;
+
+                if (item.obsrValue == "0") {
+                    let imageUrl = "icons/0.png";
+                    imageElement = $("<img>").attr("src", imageUrl);
+                } else if (item.obsrValue == "1") {
+                    let imageUrl = "icons/1.png";
+                    imageElement = $("<img>").attr("src", imageUrl);
+                }
+
+                $('.result').empty();
+                $('.result').append(contentElement, imageElement);
             });
+
             $.getJSON(apiURL, function (data1) {
                 console.log(data1);
                 console.log(data1.response.body.items.item[0].obsrValue);
                 let item1 = data1.response.body.items.item[0];
                 let content1 = item1.obsrValue + "입니다.";
-                $('.result').append(content1);
+                let contentElement1 = $("<span>").text(content1);
 
-                if(item1.obsrValue == "0" || item1.obsrValue == "1") {
-                    let imageUrl = "icons/0.png"
+                if (item1.obsrValue == "0") {
+                    let imageUrl = "icons/0.png";
                     let imageElement = $("<img>").attr("src", imageUrl);
-                    $('.result').append(imageElement);
+                    $('.result').append(contentElement1, imageElement);
+                } else if (item1.obsrValue == "1") {
+                    let imageUrl = "icons/1.png";
+                    let imageElement = $("<img>").attr("src", imageUrl);
+                    $('.result').append(contentElement1, imageElement);
+                } else {
+                    $('.result').append(contentElement1);
                 }
+                $('.result').css("float", "right");
             });
         });
     </script>

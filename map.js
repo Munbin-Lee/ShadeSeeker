@@ -6,7 +6,7 @@ let places = null;
 
 function generateMap(lat, lng) {
   console.log("map generate: ", lat, lng);
-  let mapContainer = document.getElementById("map");
+  let mapContainer = document.getElementById("myMap");
   let mapOption = {
     center: new kakao.maps.LatLng(lat, lng),
     level: 3,

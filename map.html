@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>지도 생성하기</title>
+    <style>
+      @import "css/weather.css";
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>
+    <script src="map.js"></script>
+    <script src="geolocation.js"></script>
+    <script src="shelter.js"></script>
+
+    <div id="map" style="width: 100%; height: 100%"></div>
+    <div class="weather"><img id="weatherImg" src="icons/cloudy.png" /><span id="weatherText"> -- °C</span></div>
+    <script>
+      getPositionAndGenerateMap();
+      getShelterInfo();
+      setElement(weatherImg, weatherText);
+    </script>
+  </body>
+</html>

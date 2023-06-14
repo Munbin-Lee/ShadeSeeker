@@ -58,7 +58,7 @@ namingSearchHTML.onload = () => {
   let btn = doc.getElementById("search_button");
   btn.addEventListener("click", () => {
     let text = doc.getElementById("search_text");
-    console.log("hello");
+    console.log("검색 버튼 클릭");
     console.log(text.value);
     text.value = "";
   });

@@ -54,9 +54,9 @@ function searchCallback(data, status, pagination) {
 }
 
 function setElement(weatherImg, weatherText) {
-  kakao.maps.event.addListener(mp, "dragend", function () {
+  kakao.maps.event.addListener(map, "dragend", function () {
     // 지도 중심좌표를 얻어옵니다
-    let center = mp.getCenter();
+    let center = map.getCenter();
     let lat = center.getLat();
     let lng = center.getLng();
     getWeather(lat, lng, weatherImg, weatherText);

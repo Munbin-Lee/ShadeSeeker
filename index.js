@@ -16,7 +16,6 @@ folderButton.addEventListener("click", function () {
   folderButton.classList.toggle("img_toggle");
   if (menu.style.display != "none") {
     menu.style.display = "none";
-    search_tab.style.display = "none";
     btnIcon.src = "icons/right-arrow.png";
   } else {
     menu.style.display = "inline-block";
@@ -32,7 +31,7 @@ main_tab_location.addEventListener("click", function () {
 
   statistic_icon.src = "icons/statistic.png";
   location_icon.src = "icons/location_clicked.png";
-}); 
+});
 main_tab_statistic.addEventListener("click", function () {
   menu.style.display = "none";
   folderButton.style.display = "none";
@@ -48,15 +47,3 @@ location_search.addEventListener("click", function () {
 naming_search.addEventListener("click", function () {
   searchHTML.data = "naming_search.html";
 });
-
-let namingSearchHTML = document.getElementById("search_bar");
-namingSearchHTML.onload = () => {
-  let doc = namingSearchHTML.contentDocument;
-  let btn = doc.getElementById("search_button");
-  btn.addEventListener("click", () => {
-    let text = doc.getElementById("search_text");
-    console.log("검색 버튼 클릭");
-    console.log(text.value);  
-    text.value = "";
-  });
-};

@@ -70,17 +70,22 @@
     <script>
       const mapHTML = document.getElementById('mapHTML');
       const menuHTML = document.getElementById('searchHTML')
+      
       mapHTML.onload = function() {
         var MapDocument = mapHTML.contentDocument;
-        
-          menuHTML.onload = function(){
-            var MenuDocument = menuHTML.contentDocument;
+        var MenuDocument = menuHTML.contentDocument;
+            
             searchButton = MenuDocument.getElementById('searchButton');
+            menuEL = MenuDocument.getElementById('menu_wrap')
+            listEL = MenuDocument.getElementById('placesList')
+            pagination = MenuDocument.getElementById('pagination')
+            MapDocument.test();
             searchButton.addEventListener("click", function(){
-              var keyword = internalDocument.getElementById("keyword").value;
-              MapDocument.SearchPlaces(keyword);
+              var keyword = MenuDocument.getElementById("keyword").value;
+              MapDocument.test();
+              console.log("ssss");
+              MapDocument.SearchPlaces(keyword,menuEL,listEL,pagination);
           });
-        }
       };
       
     </script>

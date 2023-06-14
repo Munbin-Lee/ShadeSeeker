@@ -1,17 +1,15 @@
-<<<<<<< HEAD
-document.write('<script src="weather.js"></script>');
-document.write('<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>')
-
-
-=======
->>>>>>> 80ed5a2932389e4a39aca01c2f9a47dcb381bd12
 const markerImageSize = new kakao.maps.Size(24, 35);
 const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
 
 let map = null;
+let ps = null;
 
 let weatherImg_ = null;
 let weatherText_ = null;
+
+let pagination_ = null;
+let listEl_ = null;
+let menuEl_ = null
 
 function generateMap(lat, lng) {
   const weatherImg = document.getElementById("weatherImg");
@@ -25,7 +23,7 @@ function generateMap(lat, lng) {
   };
 
   map = new kakao.maps.Map(mapContainer, mapOption);
-
+  ps = new kakao.maps.services.Places();
   setElement(weatherImg, weatherText);
 }
 
@@ -42,12 +40,12 @@ function generateMarker(lat, lng) {
 function setElement(weatherImg, weatherText) {
   kakao.maps.event.addListener(map, "dragend", function () {
     // 지도 중심좌표를 얻어옵니다
-    let center = map.getCenter();
-    let lat = center.getLat();
-    let lng = center.getLng();
-    getWeather(lat, lng, weatherImg, weatherText);
-    let msg = "지도 중심 변경 - lat: " + lat + " , lng: " + lng;
-    console.log(msg);
+    var latlng = map.getCenter();
+    getWeather(latlng.getLat(), latlng.getLng(), weatherImg, weatherText);
+    var message = "변경된 지도 중심좌표는 " + latlng.getLat() + " 이고, ";
+    message += "경도는 " + latlng.getLng() + " 입니다";
+
+    console.log(message);
   });
 }
 
@@ -56,13 +54,18 @@ function setElement(weatherImg, weatherText) {
 // 마커를 담을 배열입니다
 var markers = [];
 
-var ps = new kakao.maps.services.Places();
-
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+function test(){
+  console.log("test")
+}
 
 // 키워드 검색을 요청하는 함수입니다
-function searchPlaces(keyword) {
+function searchPlaces(keyword, menuEl, listEl, pagination) {
+  menuEl_ = menuEl;
+  listEl_ = listEl
+  pagination_ = pagination
+  
   if (!keyword.replace(/^\s+|\s+$/g, "")) {
     alert("키워드를 입력해주세요!");
     return false;
@@ -92,8 +95,8 @@ function placesSearchCB(data, status, pagination) {
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
-  var listEl = document.getElementById("placesList"),
-    menuEl = document.getElementById("menu_wrap"),
+  // var listEl = document.getElementById("placesList"),
+   // menuEl = document.getElementById("menu_wrap"),
     fragment = document.createDocumentFragment(),
     bounds = new kakao.maps.LatLngBounds(),
     listStr = "";

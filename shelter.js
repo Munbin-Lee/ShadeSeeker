@@ -8,7 +8,8 @@ const year = "2023";
 let shelters = [];
 
 function getShelterInfo() {
-  for (let i = 1; i <= 62; i++) {
+  // 나중에 62로 설정해야함
+  for (let i = 1; i <= 0; i++) {
     let url =
       base +
       "serviceKey=" +

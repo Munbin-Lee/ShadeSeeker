@@ -43,7 +43,7 @@ function drawMap(target) {
         .attr('height', height + 'px');
 
     //geoJson데이터를 파싱하여 지도그리기
-    d3.json('json/korea.json', function(json) {
+    d3.json('korea.json', function(json) {
         states
             .selectAll('path') //지역 설정
             .data(json.features)

@@ -1,8 +1,5 @@
-const markerImageSize = new kakao.maps.Size(24, 35);
-const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
-
-let map;
-let places;
+// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption);
 
 function generateMap(lat, lng) {
   console.log("map generate: ", lat, lng);
@@ -16,16 +13,6 @@ function generateMap(lat, lng) {
   places = new kakao.maps.services.Places();
 }
 
-function generateMarker(lat, lng) {
-  console.log("marker generate:", lat, lng);
-  let markerPosition = new kakao.maps.LatLng(lat, lng);
-  let marker = new kakao.maps.Marker({
-    map: map,
-    position: markerPosition,
-    image: markerImage,
-  });
-}
-
 function search(keyword) {
   places.keywordSearch(keyword, searchCallback);
 }
@@ -33,7 +20,7 @@ function search(keyword) {
 function searchCallback(data, status, pagination) {
   if (status === kakao.maps.services.Status.OK) {
     console.log(data);
-    setResultTable(data);
+    // setResultTable(data);
   } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
     alert("검색 결과가 존재하지 않습니다.");
     return;

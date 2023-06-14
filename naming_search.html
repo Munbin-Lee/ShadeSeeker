@@ -8,6 +8,18 @@
   </head>
   <body>
     <ul class="search_bar" id="search_bar">
+      <div class="searchingTab">
+        <ul class="search_tab" id="search_tab">
+          <li>
+            <input type="radio" name="search_tab" class="search_tab_btn" id="naming_search" checked />
+            <label for="naming_search">시설명 검색</label>
+          </li>
+          <li>
+            <input type="radio" name="search_tab" class="search_tab_btn" id="location_search" />
+            <label for="location_search">위치 검색</label>
+          </li>
+        </ul>
+      </div>
       <div class="search-container">
         <input type="text" placeholder="검색" />
         <button type="submit"><img src="icons/search.png" width="10px" height="10px" /></button>

@@ -53,3 +53,46 @@ body{
     .search_bar .search_result_table thead {
         border-bottom: 2px solid black;
     }
+
+
+    /* 검색 방법 탭 */
+
+    .searchingTab{
+        display: flex;
+        height: 80px;
+        align-items: center;
+        list-style-type : none;
+        
+        padding: 0;
+        margin:0;
+    }
+
+
+    .searchingTab li input{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: none;
+        
+        width: 0;
+        height: 0;
+    }
+
+    .searchingTab li label{
+        width: 50%;
+        height: 80px;
+        border: 2px solid #ccc;
+        cursor: pointer;
+
+        padding: 0;
+        margin: 0;
+        background-color: #ccc;
+        border-left: transparent; 
+
+        text-align: center;
+    }
+
+    .searchingTab li input:checked + label{
+        background-color: #f1f1f1;    
+    }
+

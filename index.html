@@ -76,7 +76,7 @@
           menuHTML.onload = function(){
             var MenuDocument = menuHTML.contentDocument;
             searchButton = MenuDocument.getElementById('searchButton');
-            searchButton.addEventListener("click", funtion(){
+            searchButton.addEventListener("click", function(){
               var keyword = internalDocument.getElementById("keyword").value;
               MapDocument.SearchPlaces(keyword);
           });

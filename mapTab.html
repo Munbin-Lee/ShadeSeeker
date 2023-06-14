@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        @import url(css/mainTab.css);
+    </style>
+</head>
+
+<body>
+    <div class="side_frame" id="side_frame">
+        <div class="foldableBar" id="foldableBar">
+            <div class="searchingTab">
+                <ul class="searchingTab" id="searchingTab">
+                    <li>
+                        <input type="radio" name="search_tab" class="search_tab_btn" id="naming_search" checked />
+                        <label for="naming_search">주변 시설로 검색</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="search_tab" class="search_tab_btn" id="location_search" />
+                        <label for="location_search">지역으로 검색</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="search-container" id="keyword_search_input">
+                <input type="text" value="이태원 맛집" id="keyword" size="15" placeholder="검색" />
+                <button onclick="searchPlaces()" type="submit" id="searchButton"><img src="icons/search.png"
+                        width="10px" height="10px" /></button>
+            </div>
+            <div class="search-container" id="location_search_input" style="display: none;">
+                <select class="locationCombo" id="combo1"></select>
+                <select class="locationCombo" id="combo2"></select>
+                <button type="submit" id="searchButton2"><img src="icons/search.png" width="10px"
+                        height="10px" /></button>
+            </div>
+            <div class="search_result_div">
+                <div class="menu_wrap" id="menu_wrap">
+                    <ul id="placesList"></ul>
+                    <div id="pagination"></div>
+                </div>
+            </div>
+        </div>
+        <button class="folderButton" id="folderButton">
+            <img id="buttonIcon" src="icons/left-arrow.png" width="10px;" height="10px;" />
+        </button>
+    </div>
+    <div class="myMap" id="myMap" style="width: 100%; height: 100%">
+        <div id="map" style="width: 100%; height: 100%"></div>
+        <div class="weather"><img id="weatherImg" src="icons/cloudy.png" /><span id="weatherText"> -- °C</span></div>
+    </div>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/geolocation.js"></script>
+    <script src="js/shelter.js"></script>
+
+    <script src="js/mainTab.js"></script>
+    <script>
+        getPositionAndGenerateMap();
+        getShelterInfo();
+    </script>
+    <script src="js/combo.js"></script>
+</body>
+
+</html>

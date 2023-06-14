@@ -1,0 +1,50 @@
+body{
+    position:relative;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.side_bar{
+    display: inline-block;
+    width: fit-content;
+    height: 100vh;
+    background-color: #aaaaaa;
+    list-style-type : none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+ul.side_bar li#pknu{
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+ul.side_bar li img.main_tab_img{
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+
+    cursor: pointer;
+}
+
+
+ul.side_bar .main_tab{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.content{
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+

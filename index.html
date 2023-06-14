@@ -4,34 +4,13 @@
     <meta charset="utf-8" />
     <title>햇빛 싫어</title>
     <style>
-      @import "css/menu_bar.css";
-
-      body {
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      .myMap {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+      @import "css/index.css";
     </style>
   </head>
   <body>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>
     <script src="search.js"></script>
-    <script src="weather.js"></script>
-    <div class="myMap" id="myMap">
-      <object id="mapHTML" id="mapHTML" data="map.html" type="text/html" width="100%" height="100%"></object>
-    </div>
-    <div class="side_frame" id="side_frame">
+    <div class="side_bar">
       <ul class="side_bar" id="side_bar">
         <li id="pknu"><img src="icons/pknu.png" width="30px" height="30px" /></li>
         <li id="location">
@@ -47,48 +26,10 @@
           </label>
         </li>
       </ul>
-      <div class="search_bar" id="search_bar">
-        <div>
-          <ul class="searchingTab" id="searchingTab">
-            <li>
-              <input type="radio" name="search_tab" class="search_tab_btn" id="naming_search" checked />
-              <label for="naming_search">주변 시설로 검색</label>
-            </li>
-            <li>
-              <input type="radio" name="search_tab" class="search_tab_btn" id="location_search" />
-              <label for="location_search">지역으로 검색</label>
-            </li>
-          </ul>
-        </div>
-        <object id="searchHTML" data="naming_search.html" type="text/html" width="100%" height="100%"></object>
-      </div>
-      <button class="folderButton" id="folderButton">
-        <img id="buttonIcon" src="icons/left-arrow.png" width="10px;" height="10px;" />
-      </button>
     </div>
-    <script src="index.js"></script>
-    <script>
-      const mapHTML = document.getElementById('mapHTML');
-      const menuHTML = document.getElementById('searchHTML')
-      
-      mapHTML.onload = function() {
-        var MapDocument = mapHTML.contentDocument;
-        var MenuDocument = menuHTML.contentDocument;
-            
-            searchButton = MenuDocument.getElementById('searchButton');
-            menuEL = MenuDocument.getElementById('menu_wrap')
-            listEL = MenuDocument.getElementById('placesList')
-            pagination = MenuDocument.getElementById('pagination')
-            MapDocument.test();
-            searchButton.addEventListener("click", function(){
-              var keyword = MenuDocument.getElementById("keyword").value;
-              MapDocument.test();
-              console.log("ssss");
-              MapDocument.SearchPlaces(keyword,menuEL,listEL,pagination);
-          });
-      };
-      
-    </script>
-
+    <div class="content">
+      <object id="content" class="contentHTML" data="mapTab.html" type="text/html" width="100%" height="100%"></object>
+    </div>
+    <script src="js/index.js"></script>
   </body>
 </html>

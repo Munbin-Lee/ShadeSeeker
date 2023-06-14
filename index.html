@@ -27,7 +27,7 @@
   <body>
     <script src="weather.js"></script>
     <div class="myMap" id="myMap">
-      <object id="mapHTML" data="map.html" type="text/html" width="100%" height="100%"></object>
+      <object id="mapHTML" id="mapHTML" data="map.html" type="text/html" width="100%" height="100%"></object>
     </div>
     <div class="side_frame" id="side_frame">
       <ul class="side_bar" id="side_bar">
@@ -45,7 +45,7 @@
           </label>
         </li>
       </ul>
-      <div class="search_bar">
+      <div class="search_bar" id="search_bar">
         <div>
           <ul class="searchingTab" id="searchingTab">
             <li>
@@ -58,12 +58,30 @@
             </li>
           </ul>
         </div>
-        <object id="search_bar" data="naming_search.html" type="text/html" width="100%" height="100%"></object>
+        <object id="searchHTML" data="naming_search.html" type="text/html" width="100%" height="100%"></object>
       </div>
       <button class="folderButton" id="folderButton">
         <img id="buttonIcon" src="icons/left-arrow.png" width="10px;" height="10px;" />
       </button>
     </div>
     <script src="index.js"></script>
+    <script>
+      const mapHTML = document.getElementById('mapHTML');
+      const menuHTML = document.getElementById('searchHTML')
+      mapHTML.onload = function() {
+        var MapDocument = mapHTML.contentDocument;
+        
+          menuHTML.onload = function(){
+            var MenuDocument = menuHTML.contentDocument;
+            searchButton = MenuDocument.getElementById('searchButton');
+            searchButton.addEventListener("click", funtion(){
+              var keyword = internalDocument.getElementById("keyword").value;
+              MapDocument.SearchPlaces(keyword);
+          });
+        }
+      };
+      
+    </script>
+
   </body>
 </html>

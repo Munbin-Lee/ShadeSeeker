@@ -7,7 +7,6 @@ const main_tab_location = document.getElementById("location_tab");
 const statistic_icon = document.getElementById("statistic_icon");
 const location_icon = document.getElementById("location_icon");
 const myMap = document.getElementById("myMap");
-const search_tab = document.getElementById("search_tab");
 
 const search_bar = document.getElementById("search_bar");
 const naming_search = document.getElementById("naming_search");
@@ -29,7 +28,6 @@ folderButton.addEventListener("click", function () {
 main_tab_location.addEventListener("click", function () {
   menu.style.display = "inline-block";
   folderButton.style.display = "inline-block";
-  search_tab.style.display = "inline-block";
   myMap.style.display = "inline-block";
 
   statistic_icon.src = "icons/statistic.png";
@@ -37,7 +35,6 @@ main_tab_location.addEventListener("click", function () {
 });
 main_tab_statistic.addEventListener("click", function () {
   menu.style.display = "none";
-  search_tab.style.display = "none";
   folderButton.style.display = "none";
   myMap.style.display = "none";
 
@@ -46,8 +43,8 @@ main_tab_statistic.addEventListener("click", function () {
 });
 
 location_search.addEventListener("click", function () {
-  search_bar.data = "location_search.html";
+  searchHTML.data = "location_search.html";
 });
 naming_search.addEventListener("click", function () {
-  search_bar.data = "naming_search.html";
+  searchHTML.data = "naming_search.html";
 });

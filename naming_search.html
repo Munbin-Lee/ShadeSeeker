@@ -7,12 +7,16 @@
     </style>
   </head>
   <body>
-    <ul class="search_bar" id="search_bar">
+    <div class="menu_wrap">
       <div class="search-container">
-        <input type="text" placeholder="검색" />
-        <button type="submit"><img src="icons/search.png" width="10px" height="10px" /></button>
+          <input type="text" value="이태원 맛집" id="keyword" size="15" placeholder="검색" />
+          <button type="submit" id="searchButton"><img src="icons/search.png" width="10px" height="10px" /></button>
       </div>
-      <div class="search_result_table">
+      <ul id="placesList"></ul>
+      <div id="pagination">ddddddddddd</div>
+    </div>
+    <ul class="search_bar" id="search_bar">
+      
         <table>
           <thead>
             <tr>

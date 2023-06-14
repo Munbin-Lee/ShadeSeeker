@@ -5,7 +5,6 @@
     <title>햇빛 싫어</title>
     <style>
       @import "css/menu_bar.css";
-      @import "css/weather.css";
 
       body {
         display: inline-block;
@@ -23,20 +22,13 @@
         margin: 0;
         padding: 0;
       }
-
-      .weather {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-      }
     </style>
   </head>
   <body>
-    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>
-    <script src="map.js"></script>
-    <script src="geolocation.js"></script>
-    <script src="shelter.js"></script>
-    <!-- <script src="weather.js"></script> -->
+    <script src="weather.js"></script>
+    <div class="myMap" id="myMap">
+      <object id="mapHTML" data="map.html" type="text/html" width="100%" height="100%"></object>
+    </div>
     <div class="side_frame" id="side_frame">
       <ul class="side_bar" id="side_bar">
         <li id="pknu"><img src="icons/pknu.png" width="30px" height="30px" /></li>
@@ -71,13 +63,5 @@
       </button>
     </div>
     <script src="index.js"></script>
-
-    <div id="myMap" style="width: 75%; height: 100%"></div>
-    <div class="weather"><img id="weatherImg" src="icons/cloudy.png" /><span id="weatherText"> -- °C</span></div>
-    <script>
-      getPositionAndGenerateMap();
-      // getShelterInfo();
-      // setElement(weatherImg, weatherText);
-    </script>
   </body>
 </html>

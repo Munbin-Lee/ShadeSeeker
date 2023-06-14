@@ -1,5 +1,3 @@
-document.write('<script src="weather.js"></script>');
-
 const markerImageSize = new kakao.maps.Size(24, 35);
 const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
 

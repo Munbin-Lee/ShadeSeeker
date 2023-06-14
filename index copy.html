@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>햇빛 싫어</title>
     <style>
-      @import "css/menu_bar.css";
+      /* @import "css/menu_bar.css"; */
       @import "css/weather.css";
 
       body {
@@ -33,10 +33,15 @@
   </head>
   <body>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <script src="weather.js"></script>
     <script src="map.js"></script>
     <script src="geolocation.js"></script>
     <script src="shelter.js"></script>
-    <!-- <script src="weather.js"></script> -->
     <div class="side_frame" id="side_frame">
       <ul class="side_bar" id="side_bar">
         <li id="pknu"><img src="icons/pknu.png" width="30px" height="30px" /></li>
@@ -72,8 +77,7 @@
     </div>
     <script src="index.js"></script>
 
-    <div id="myMap" style="width: 75%; height: 100%"></div>
-    <div class="weather"><img id="weatherImg" src="icons/cloudy.png" /><span id="weatherText"> -- °C</span></div>
+    <div id="map" style="width: 100%; height: 350px"></div>
     <script>
       getPositionAndGenerateMap();
       // getShelterInfo();

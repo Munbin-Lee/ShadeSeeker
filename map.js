@@ -54,13 +54,13 @@ function searchCallback(data, status, pagination) {
 }
 
 function setElement(weatherImg, weatherText) {
-  kakao.maps.event.addListener(map, "dragend", function () {
+  kakao.maps.event.addListener(mp, "dragend", function () {
     // 지도 중심좌표를 얻어옵니다
-    var latlng = map.getCenter();
-    getWeather(latlng.getLat(), latlng.getLng(), weatherImg, weatherText);
-    var message = "변경된 지도 중심좌표는 " + latlng.getLat() + " 이고, ";
-    message += "경도는 " + latlng.getLng() + " 입니다";
-
-    console.log(message);
+    let center = mp.getCenter();
+    let lat = center.getLat();
+    let lng = center.getLng();
+    getWeather(lat, lng, weatherImg, weatherText);
+    let msg = "지도 중심 변경 - lat: " + lat + " , lng: " + lng;
+    console.log(msg);
   });
 }

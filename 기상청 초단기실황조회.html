@@ -1,20 +1,21 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>기상청 초단기실황조회API </title>
-    </head>
-    <body>
-        <p id="sample_data"></p>
-        <script>
-            const url = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=wJB5u4Lk3FG95bFUSRipiX938gVIdiLfukQ806B8ql2H2ud9dnffH7kvGhC2yrVevlN0ewKzyeISd3DWI5QVVg%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20230531&base_time=0600&nx=55&ny=127';
+  <head>
+    <meta charset="UTF-8" />
+    <title>기상청 초단기실황조회API</title>
+  </head>
+  <body>
+    <p id="sample_data"></p>
+    <script>
+      const url =
+        "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=wJB5u4Lk3FG95bFUSRipiX938gVIdiLfukQ806B8ql2H2ud9dnffH7kvGhC2yrVevlN0ewKzyeISd3DWI5QVVg%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=20230531&base_time=0600&nx=55&ny=127";
 
-            dataPane = document.getElementById("sample_data");
+      dataPane = document.getElementById("sample_data");
 
-            fetch(url)
-            .then(res =>res.json())
-            .then(resJson => {
-                dataPane.innerText = JSON.stringify(resJson, null, 1);
-            })
-        </script>
-    </body>
+      fetch(url)
+        .then((res) => res.json())
+        .then((resJson) => {
+          dataPane.innerText = JSON.stringify(resJson, null, 1);
+        });
+    </script>
+  </body>
 </html>

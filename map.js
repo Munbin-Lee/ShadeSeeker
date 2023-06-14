@@ -10,8 +10,8 @@ let weatherImg_ = null;
 let weatherText_ = null;
 
 function generateMap(lat, lng) {
-  const weatherImg = document.getElementById('weatherImg');
-  const weatherText = document.getElementById('weatherText');
+  const weatherImg = document.getElementById("weatherImg");
+  const weatherText = document.getElementById("weatherText");
 
   console.log("map generate: ", lat, lng);
   let mapContainer = document.getElementById("map");
@@ -23,7 +23,7 @@ function generateMap(lat, lng) {
   map = new kakao.maps.Map(mapContainer, mapOption);
   places = new kakao.maps.services.Places();
 
-  setElement(weatherImg,weatherText);
+  setElement(weatherImg, weatherText);
 }
 
 function generateMarker(lat, lng) {
@@ -35,7 +35,6 @@ function generateMarker(lat, lng) {
     image: markerImage,
   });
 }
-
 
 function search(keyword) {
   places.keywordSearch(keyword, searchCallback);
@@ -54,14 +53,14 @@ function searchCallback(data, status, pagination) {
   }
 }
 
-function setElement(weatherImg, weatherText){
-  kakao.maps.event.addListener(map, 'dragend', function() {        
-    // 지도 중심좌표를 얻어옵니다 
-    var latlng = map.getCenter(); 
-    getWeather(latlng.getLat(),latlng.getLng(),weatherImg,weatherText);
-    var message = '변경된 지도 중심좌표는 ' + latlng.getLat() + ' 이고, ';
-    message += '경도는 ' + latlng.getLng() + ' 입니다';
+function setElement(weatherImg, weatherText) {
+  kakao.maps.event.addListener(map, "dragend", function () {
+    // 지도 중심좌표를 얻어옵니다
+    var latlng = map.getCenter();
+    getWeather(latlng.getLat(), latlng.getLng(), weatherImg, weatherText);
+    var message = "변경된 지도 중심좌표는 " + latlng.getLat() + " 이고, ";
+    message += "경도는 " + latlng.getLng() + " 입니다";
 
     console.log(message);
-});
+  });
 }

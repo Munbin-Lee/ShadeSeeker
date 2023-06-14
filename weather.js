@@ -1,6 +1,3 @@
-document.write(
-  '<script src="https://code.jquery.com/jquery-3.7.0.min.js"integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>'
-);
 function convertToGrid(v1, v2) {
   // LCC DFS 좌표변환을 위한 기초 자료
   var RE = 6371.00877; // 지구 반경(km)

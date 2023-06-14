@@ -51,3 +51,15 @@ location_search.addEventListener("click", function () {
 naming_search.addEventListener("click", function () {
   search_bar.data = "naming_search.html";
 });
+
+let namingSearchHTML = document.getElementById("search_bar");
+namingSearchHTML.onload = () => {
+  let doc = namingSearchHTML.contentDocument;
+  let btn = doc.getElementById("search_button");
+  btn.addEventListener("click", () => {
+    let text = doc.getElementById("search_text");
+    console.log("hello");
+    console.log(text.value);
+    text.value = "";
+  });
+};

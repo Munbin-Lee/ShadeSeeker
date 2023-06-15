@@ -1,3 +1,5 @@
+document.write('<script src="js/shelter.js"></script>')
+
 const markerImageSize = new kakao.maps.Size(24, 35);
 const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
 
@@ -7,9 +9,27 @@ let ps = null;
 let weatherImg_ = null;
 let weatherText_ = null;
 
-let pagination_ = null;
-let listEl_ = null;
-let menuEl_ = null
+// 마커를 담을 배열입니다
+let markers = [];
+let markers_sht = [];
+
+let circle = null;
+
+function generateShelterMarker(shelters){
+
+  if(shelters.length!=0){
+      //markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+    shelters.forEach((shelter) => {
+      var position = new kakao.maps.LatLng(shelter.la, shelter.lo)
+      var marker = new kakao.maps.Marker({
+        position: position, // 마커의 위치
+        image: markerImage,
+      });
+      marker.setMap(map); // 지도 위에 마커를 표출합니다
+      markers_sht.push(marker); // 배열에 생성된 마커를 추가합니다
+    });
+  }
+}
 
 function generateMap(lat, lng) {
   const weatherImg = document.getElementById("weatherImg");
@@ -51,14 +71,8 @@ function setElement(weatherImg, weatherText) {
 
 
 
-// 마커를 담을 배열입니다
-var markers = [];
-
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-function test(){
-  console.log("test")
-}
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
@@ -194,6 +208,31 @@ function addMarker(position, idx, title) {
       image: markerImage,
     });
 
+    //마커 클릭 이벤트 구현입니다.
+  kakao.maps.event.addListener(marker, "click", function () {
+      removeMarkerShelter();
+      if(circle != null) {
+        circle.setMap(null)
+      }
+      setNearbyShelters(marker.getPosition().Ma ,marker.getPosition().La);
+      map.panTo(marker.getPosition());
+      
+      // 지도에 표시할 원을 생성합니다
+      var new_circle = new kakao.maps.Circle({
+        center : new kakao.maps.LatLng(marker.getPosition().Ma, marker.getPosition().La),  // 원의 중심좌표 입니다 
+        radius: 1000, // 미터 단위의 원의 반지름입니다 
+        strokeWeight: 5, // 선의 두께입니다 
+        strokeColor: '#75B8FA', // 선의 색깔입니다
+        strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+        strokeStyle: 'dashed', // 선의 스타일 입니다
+        fillColor: '#CFE7FF', // 채우기 색깔입니다
+        fillOpacity: 0.7  // 채우기 불투명도 입니다   
+      }); 
+
+      // 지도에 원을 표시합니다 
+      new_circle.setMap(map); 
+      circle = new_circle
+  });
   marker.setMap(map); // 지도 위에 마커를 표출합니다
   markers.push(marker); // 배열에 생성된 마커를 추가합니다
 
@@ -207,7 +246,13 @@ function removeMarker() {
   }
   markers = [];
 }
-
+// 지도 위에 표시되고 있는 마커를 모두 제거합니다
+function removeMarkerShelter() {
+  for (var i = 0; i < markers_sht.length; i++) {
+    markers_sht[i].setMap(null);
+  }
+  markers_sht = [];
+}
 // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
 function displayPagination(pagination) {
   var paginationEl = document.getElementById("pagination"),

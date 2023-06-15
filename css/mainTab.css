@@ -1,13 +1,13 @@
 body{
+  display: flex;
     margin: 0;
     padding: 0;
     height: 100vh;
 }
 
 .myMap{
-    position:absolute;
-    left: 0;
-    top: 0;
+  flex: 1;
+  height: 100%;
 }
 
  /* side_frame ( 메뉴바 전체 ) */

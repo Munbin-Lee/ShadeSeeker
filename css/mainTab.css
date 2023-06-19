@@ -369,3 +369,17 @@ body{
       margin: 20px;
       display: block;
     }
+
+    .info_sht .info_title{
+      font-weight: bold;
+      display: block;
+      font-size: 13sp;
+    }
+    .info_sht .info_addr{
+      display: block;
+      font-size: 8sp;
+      padding: 5px;
+    }
+    .info_sht .info_btn{
+      width: 100%;
+    }

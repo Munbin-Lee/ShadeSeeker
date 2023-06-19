@@ -76,25 +76,33 @@ function generateShelterMarker(shelters, islocationSearch = false){
       image: marker_img,
     });
 
+    //돌아갈곳
+
+
+
       //무더위쉼터의 인포 이벤트
-    (function (marker, title) {
+    (function (marker, shelter) {
         kakao.maps.event.addListener(marker, "mouseover", function () {
-          displayInfowindow(marker, title);
+          displayInfowindow(marker, shelter.restname);
         });
         kakao.maps.event.addListener(marker, "mouseout", function () {
           infowindow.close();
         });
         if(islocationSearch){
-          
           itemEl.onmouseover = function () {
-            displayInfowindow(marker, title);
+            displayInfowindow(marker, shelter.restname);
           };
-
           itemEl.onmouseout = function () {
             infowindow.close();
         };
+
+        kakao.maps.event.addListener(marker, 'click', function() {
+          // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+          infowindow.close();
+          shelterInfowindow(marker,shelter);
+        });
       }
-    })(marker,shelter.restname);
+    })(marker,shelter);
     if(visible){
       marker.setMap(map); // 지도 위에 마커를 표출합니다
     }
@@ -161,6 +169,7 @@ function setElement(weatherImg, weatherText) {
 
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+var infowindow_sht = new kakao.maps.InfoWindow({ zIndex: 1 , removable : true});
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
@@ -230,6 +239,9 @@ function displayPlaces(places) {
 
       kakao.maps.event.addListener(marker, "mouseout", function () {
         infowindow.close();
+      });
+
+      kakao.maps.event.addListener(marker, "click", function () {
       });
 
       itemEl.onmouseover = function () {
@@ -407,6 +419,22 @@ function displayInfowindow(marker, title) {
 
   infowindow.setContent(content);
   infowindow.open(map, marker);
+}
+function shelterInfowindow(marker, shelter) {
+  var content = '<div class="info_sht" style="padding:5px;z-index:1;">' 
+    + '<a class="info_title">' + shelter.restname + "</a>"
+    + '<a class="info_addr">' + shelter.restaddr + "</a>"
+    + '<button class="info_btn" onclick="openDirections(\'' + shelter.restname + '\', ' + shelter.la + ', ' + shelter.lo + ')">길찾기</button>'
+    + "</div>";
+
+  infowindow_sht.setContent(content);
+  infowindow_sht.open(map, marker);
+}
+
+function openDirections(restname, la, lo) {
+  var roadUrl = "https://map.kakao.com/link/to/";
+  roadUrl += restname + "," + la + "," + lo;
+  window.open(roadUrl);
 }
 
 // 검색결과 목록의 자식 Element를 제거하는 함수입니다

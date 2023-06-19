@@ -409,7 +409,7 @@ function displayInfowindow(marker, title) {
   infowindow.open(map, marker);
 }
 function shelterInfowindow(marker, shelter) {
-  var content = '<div class="info_sht" style="padding:5px;z-index:1;">' 
+  var content = '<div class="info_sht" style="padding:5px;z-index:1;padding-bottom=20px;">' 
     + '<a class="info_title">' + shelter.restname + "</a>"
     + '<a class="info_addr">' + shelter.restaddr + "</a>"
     + '<button class="info_btn" onclick="openDirections(\'' + shelter.restname + '\', ' + shelter.la + ', ' + shelter.lo + ')">길찾기</button>'

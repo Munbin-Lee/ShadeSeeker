@@ -69,10 +69,8 @@ function getWeather(lat, lon, imgElement, textElement) {
 
   //let apiURL2 = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=Ra8KnDXQFqkPHWYJuYj5WIo0zbXUNa%2BIs8938WOplm3Y5s81nwmWLRbeCO5yvf29u5CQPiSv2tU%2FEFSe8alD5Q%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=" +formattedDate + "&base_time=" + prevTime +"&nx=" + nx + "&ny=" + ny;
 
-  console.log(formattedDate, formattedTime);
 
   $.getJSON(apiURL, function (data) {
-    console.log(data);
     dataObject = data.response.body.items.item;
     var weather;
     var content;

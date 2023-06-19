@@ -229,7 +229,7 @@ body{
       color: #009900;
     }
 
-    #placesList .item .marker {
+    #placesList .item .markerbg {
       float: left;
       position: absolute;
       width: 36px;
@@ -239,14 +239,43 @@ body{
     }
 
 
-    #placesList .item .marker_y {
+    #placesList .item .marker_sht {
       float: left;
       position: absolute;
       width: 36px;
       height: 37px;
       margin: 10px 0 0 10px;
-      background: url('../icons/marker_y.png');
+
     }
+
+    
+    #placesList .item .marker_y {
+      background: url('../icons/marker_y.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #placesList .item .marker_r {
+      background: url('../icons/marker_r.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    #placesList .item .marker_g {
+      background: url('../icons/marker_g.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #placesList .item .marker_b {
+      background: url('../icons/marker_b.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    
     #placesList .item .marker_1 {
       background-position: 0 -10px;
     }
@@ -328,3 +357,15 @@ body{
       100% { transform: rotate(360deg); }
     }
           
+
+    .markerVisible{
+      z-index: 2;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background-color: #FFFFFFaa;
+    }
+    .markerVisible > div{
+      margin: 20px;
+      display: block;
+    }

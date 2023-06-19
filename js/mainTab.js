@@ -51,3 +51,11 @@ document.getElementById("keyword").addEventListener("keyup", function(event) {
 });
 
 
+let checkboxes = document.getElementsByClassName('markerVisibleCkbox')
+for (var i = 0; i < checkboxes.length; i++) {
+  checkboxes[i].addEventListener('click', function(event) {
+    var checkbox = event.target;
+    changeMarkersVisible(checkbox.id, checkbox.checked)
+    console.log(checkbox.checked)
+  });
+}

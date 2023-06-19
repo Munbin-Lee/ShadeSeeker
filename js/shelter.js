@@ -80,10 +80,33 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListShelter(shelter) {
-  var el = document.createElement("li"),
-  marker_color = "y"  
+  var el = document.createElement("li")
+
+  switch (String(shelter.equptype)) {
+    //노인시설
+    case "001":
+      marker_color = "r"
+      break;
+
+    //복지회관 / 마을회관
+    case "002" :
+    case "003" :
+      marker_color = "g"
+      break;
+
+    //공원 / 정자
+    case "009":
+    case "010":
+      marker_color = "b"
+      break;
+
+    //기타
+    default:
+      marker_color = "y"
+  }
+
   itemStr =
-      '<span class="marker_' +
+      '<span class="marker_sht marker_' +
       marker_color +
       '"></span>' +
       '<div class="info">' +

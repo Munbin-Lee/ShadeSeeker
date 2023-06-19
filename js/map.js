@@ -1,6 +1,6 @@
 document.write('<script src="js/shelter.js"></script>')
 
-const markerImageSize = new kakao.maps.Size(24, 35);
+const markerImageSize = new kakao.maps.Size(28, 28);
 const markerImage = new kakao.maps.MarkerImage("../icons/marker.png", markerImageSize);
 
 let map = null;
@@ -11,7 +11,11 @@ let weatherText_ = null;
 
 // 마커를 담을 배열입니다
 let markers = [];
-let markers_sht = [];
+
+let markers_r = [];
+let markers_g = [];
+let markers_b = [];
+let markers_y = [];
 
 let circle = null;
 
@@ -28,10 +32,48 @@ function generateShelterMarker(shelters, islocationSearch = false){
     var shelter = shelters[i];
     var itemEl = getListShelter(shelters[i]); // 검색 결과 항목 Element를 생성합니다
     var placePosition = new kakao.maps.LatLng(shelter.la, shelter.lo);
-
+    var marker_sht = null;
+    var visible = true;
+    var imgSrc = '../icons/marker_'
+    switch (String(shelter.equptype)) {
+      //노인시설
+      case "001":
+        imgSrc += "r.png"
+        markers_sht = markers_r;
+        visible = document.getElementById('red').checked
+        break;
+  
+      //복지회관 / 마을회관
+      case "002" :
+      case "003" :
+      case "005" :
+      case "006" :
+        imgSrc += "g.png"
+        markers_sht = markers_g;
+        visible = document.getElementById('green').checked
+        break;
+  
+      //공원 / 정자
+      case "009":
+      case "010":
+      case "011":
+      case "022":
+        imgSrc += "b.png"
+        markers_sht = markers_b;
+        visible = document.getElementById('blue').checked
+        break;
+  
+      //기타
+      default:
+        imgSrc += "y.png"
+        markers_sht = markers_y;
+        visible = document.getElementById('yellow').checked
+    }
+    
+    var marker_img = new kakao.maps.MarkerImage(imgSrc, markerImageSize);
     var marker = new kakao.maps.Marker({
       position: placePosition, // 마커의 위치
-      image: markerImage,
+      image: marker_img,
     });
 
       //무더위쉼터의 인포 이벤트
@@ -53,8 +95,9 @@ function generateShelterMarker(shelters, islocationSearch = false){
         };
       }
     })(marker,shelter.restname);
-
-    marker.setMap(map); // 지도 위에 마커를 표출합니다
+    if(visible){
+      marker.setMap(map); // 지도 위에 마커를 표출합니다
+    }
     markers_sht.push(marker); // 배열에 생성된 마커를 추가합니다
 
     
@@ -87,6 +130,9 @@ function generateMap(lat, lng) {
   map = new kakao.maps.Map(mapContainer, mapOption);
   ps = new kakao.maps.services.Places();
   setElement(weatherImg, weatherText);
+  var latlng = map.getCenter();
+  getWeather(latlng.getLat(), latlng.getLng(), weatherImg, weatherText);
+  
 }
 
 function generateMarker(lat, lng) {
@@ -127,6 +173,9 @@ function searchPlaces() {
 
   // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
   ps.keywordSearch(keyword, placesSearchCB);
+  var latlng = map.getCenter();
+  getWeather(latlng.getLat(), latlng.getLng(), weatherImg, weatherText);
+  
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -190,6 +239,11 @@ function displayPlaces(places) {
       itemEl.onmouseout = function () {
         infowindow.close();
       };
+
+      itemEl.addEventListener("click",function(){
+        marker.onclick();
+      })
+
     })(marker, places[i].place_name);
 
     fragment.appendChild(itemEl);
@@ -257,7 +311,11 @@ function addMarker(position, idx, title) {
         circle.setMap(null)
       }
       setNearbyShelters(marker.getPosition().Ma ,marker.getPosition().La);
-      map.panTo(marker.getPosition());
+      map.setLevel(5);
+      map.setCenter(marker.getPosition());
+      var latlng = map.getCenter();
+      getWeather(latlng.getLat(), latlng.getLng(), weatherImg, weatherText);
+  
       
       // 지도에 표시할 원을 생성합니다
       var new_circle = new kakao.maps.Circle({
@@ -283,9 +341,7 @@ function addMarker(position, idx, title) {
 
 // 지도 위에 표시되고 있는 마커및 원을 모두 제거합니다
 function removeMarker() {
-  if(markers_sht.length > 0){
-    removeMarkerShelter();
-  }
+  removeMarkerShelter();
   if(circle != null) {
     circle.setMap(null)
   }
@@ -296,10 +352,22 @@ function removeMarker() {
 }
 // 지도 위에 표시되고 있는 마커를 모두 제거합니다
 function removeMarkerShelter() {
-  for (var i = 0; i < markers_sht.length; i++) {
-    markers_sht[i].setMap(null);
+  for (var i = 0; i < markers_y.length; i++) {
+    markers_y[i].setMap(null);
+    markers_y = [];
   }
-  markers_sht = [];
+  for (var i = 0; i < markers_r.length; i++) {
+    markers_r[i].setMap(null);
+    markers_r = [];
+  }
+  for (var i = 0; i < markers_g.length; i++) {
+    markers_g[i].setMap(null);
+    markers_g = [];
+  }
+  for (var i = 0; i < markers_b.length; i++) {
+    markers_b[i].setMap(null);
+    markers_b = [];
+  }
 }
 // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
 function displayPagination(pagination) {
@@ -373,6 +441,9 @@ function setlocationShelters(code){
     
   // 지도 중심을 이동시킵니다
   map.setCenter(moveLatLon); 
+  var latlng = map.getCenter();
+  getWeather(latlng.getLat(), latlng.getLng(), weatherImg, weatherText);
+
   map.setLevel(7);
   generateShelterMarker(results,true)  
   endLoading();
@@ -421,3 +492,55 @@ function endLoading(){
 
 }
 
+function changeMarkersVisible(color, visible){
+  console.log(markers_r,markers_g,markers_b,markers_y)
+  switch(color){
+    case "red" :  
+      for (var i = 0; i < markers_r.length; i++) {
+        if(visible){
+          markers_r[i].setMap(map);
+        }
+        else{
+          markers_r[i].setMap(null);
+        }
+      }
+      break;
+    case "green" :
+      for (var i = 0; i < markers_g.length; i++) {
+        if(visible){
+          markers_g[i].setMap(map);
+        }
+        else{
+          markers_g[i].setMap(null);
+        }
+      }
+      break;
+    case "blue" :
+      for (var i = 0; i < markers_b.length; i++) {
+        if(visible){
+          markers_b[i].setMap(map);
+        }
+        else{
+          markers_b[i].setMap(null);
+        }
+      }
+      break;
+    case "yellow" :
+      for (var i = 0; i < markers_y.length; i++) {
+        if(visible){
+          markers_y[i].setMap(map);
+        }
+        else{
+          markers_y[i].setMap(null);
+        }
+      }
+      break;
+
+      default:
+        console.log(color,visible);
+    }
+
+    console.log(color,visible);
+
+
+}

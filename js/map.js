@@ -19,6 +19,10 @@ let markers_y = [];
 
 let circle = null;
 
+// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+var infowindow_sht = new kakao.maps.InfoWindow({ zIndex: 1 , removable : true});
+
 
 //무더위 쉼터 마크 표시하는 함수
 function generateShelterMarker(shelters, islocationSearch = false){
@@ -32,7 +36,7 @@ function generateShelterMarker(shelters, islocationSearch = false){
     var shelter = shelters[i];
     var itemEl = getListShelter(shelters[i]); // 검색 결과 항목 Element를 생성합니다
     var placePosition = new kakao.maps.LatLng(shelter.la, shelter.lo);
-    var marker_sht = null;
+    var markers_sht = null;
     var visible = true;
     var imgSrc = '../icons/marker_'
     switch (String(shelter.equptype)) {
@@ -79,7 +83,6 @@ function generateShelterMarker(shelters, islocationSearch = false){
     //돌아갈곳
 
 
-
       //무더위쉼터의 인포 이벤트
     (function (marker, shelter) {
         kakao.maps.event.addListener(marker, "mouseover", function () {
@@ -97,18 +100,18 @@ function generateShelterMarker(shelters, islocationSearch = false){
         };
 
         kakao.maps.event.addListener(marker, 'click', function() {
-          // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
           infowindow.close();
           shelterInfowindow(marker,shelter);
         });
       }
     })(marker,shelter);
+
     if(visible){
       marker.setMap(map); // 지도 위에 마커를 표출합니다
     }
     markers_sht.push(marker); // 배열에 생성된 마커를 추가합니다
 
-    
+
     if(islocationSearch){
       bounds.extend(placePosition);
       fragment.appendChild(itemEl);
@@ -143,16 +146,6 @@ function generateMap(lat, lng) {
   
 }
 
-function generateMarker(lat, lng) {
-  console.log("marker generate:", lat, lng);
-  let markerPosition = new kakao.maps.LatLng(lat, lng);
-  let marker = new kakao.maps.Marker({
-    map: map,
-    position: markerPosition,
-    image: markerImage,
-  });
-}
-
 function setElement(weatherImg, weatherText) {
   kakao.maps.event.addListener(map, "dragend", function () {
     // 지도 중심좌표를 얻어옵니다
@@ -164,12 +157,6 @@ function setElement(weatherImg, weatherText) {
     console.log(message);
   });
 }
-
-
-
-// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-var infowindow_sht = new kakao.maps.InfoWindow({ zIndex: 1 , removable : true});
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
@@ -363,23 +350,24 @@ function removeMarker() {
   markers = [];
 }
 // 지도 위에 표시되고 있는 마커를 모두 제거합니다
-function removeMarkerShelter() {
+function removeMarkerShelter() {    
   for (var i = 0; i < markers_y.length; i++) {
     markers_y[i].setMap(null);
-    markers_y = [];
   }
   for (var i = 0; i < markers_r.length; i++) {
     markers_r[i].setMap(null);
-    markers_r = [];
   }
   for (var i = 0; i < markers_g.length; i++) {
     markers_g[i].setMap(null);
-    markers_g = [];
   }
   for (var i = 0; i < markers_b.length; i++) {
     markers_b[i].setMap(null);
-    markers_b = [];
   }
+  markers_y = [];
+  markers_b = [];
+  markers_g = [];
+  markers_r = [];
+
 }
 // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
 function displayPagination(pagination) {
@@ -448,11 +436,16 @@ function removeAllChildNods() {
   while (paginationEl.hasChildNodes()) {
     paginationEl.removeChild(paginationEl.lastChild);
   }
+
+  infowindow.close()
+  infowindow_sht.close()
 }
 
 
 //지역코드로 검색시작
 function setlocationShelters(code){
+  // 검색 결과 목록에 추가된 항목들을 제거합니다
+  removeAllChildNods();
   removeMarkerShelter();
   var results = []
   var lats = []
@@ -521,7 +514,6 @@ function endLoading(){
 }
 
 function changeMarkersVisible(color, visible){
-  console.log(markers_r,markers_g,markers_b,markers_y)
   switch(color){
     case "red" :  
       for (var i = 0; i < markers_r.length; i++) {

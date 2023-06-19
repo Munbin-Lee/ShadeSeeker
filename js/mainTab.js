@@ -29,7 +29,7 @@ folderButton.addEventListener("click", function () {
     naming_input.style.display = "none"
     location_input.style.display = "flex"
     removeMarker();
-   removeAllChildNods();
+    removeAllChildNods();
 
   });
   naming_search.addEventListener("click", function () {

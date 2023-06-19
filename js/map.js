@@ -513,7 +513,46 @@ function endLoading(){
 
 }
 
+
+function updateShelterEl(color, visible){
+  var el = document.getElementById("placesList");
+  var childElements = el.children;
+  console.log("childEel",childElements)
+  var targetClass = null;
+  switch(color){
+    case "red" :  
+      targetClass = "marker_r"
+      break;
+    case "green" :
+      targetClass = "marker_g"
+      break;
+    case "blue" :
+      targetClass = "marker_b"
+      break;
+    case "yellow" :
+      targetClass = "marker_y"
+      break;
+      default:
+    }
+  
+console.log(targetClass, visible)
+  // 자식 요소를 순회하면서 코드 실행
+  for (var i = 0; i< childElements.length ; i++) {
+    var child = childElements[i];
+    var span = child.getElementsByTagName("span")[0]; // 첫 번째 <span> 태그 가져오기
+    if (span.classList.contains(targetClass)) {
+      if(visible){
+        child.style.display = "";
+      }else{
+        child.style.display = "none";
+      }
+    }
+  }
+}
+
+
 function changeMarkersVisible(color, visible){
+  updateShelterEl(color,visible)
   switch(color){
     case "red" :  
       for (var i = 0; i < markers_r.length; i++) {
@@ -557,10 +596,5 @@ function changeMarkersVisible(color, visible){
       break;
 
       default:
-        console.log(color,visible);
     }
-
-    console.log(color,visible);
-
-
 }

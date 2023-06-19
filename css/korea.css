@@ -1,35 +1,41 @@
 @charset "UTF-8";
 
 #container {
-    width: 700px;
-    min-height: 700px;
-    float: left;
-    margin: 15px 35px;
+  width: 350px;
+  min-height: 350px;
+  float: left;
+  margin: 15px 35px;
 }
+
 #states path {
-    fill: #585858;
-    stroke: #000000;
-    stroke-width: 1.5px;
+  fill: #585858;
+  fill: white;
+  stroke: #000000;
+  stroke: gray;
+  stroke-width: 1.5px;
 }
 
 #states path:hover {
-    fill: #009300;
+  fill: #009300;
+  fill: yellow;
 }
 
 #states .active {
-    fill: #00b700;
+  fill: #00b700;
 }
 
 #states .activeDetail {
-    fill: #00b700;
+  fill: #00b700;
 }
 
 #states path {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #states text {
-    cursor: pointer;
-    font-size: 12px;
-    fill: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  fill: #fff;
+  fill: black;
+  font-weight: bold;
 }

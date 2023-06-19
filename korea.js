@@ -30,11 +30,11 @@ function drawMap(target) {
 
   var states = svg.append("g").attr("id", "states").call(zoom);
 
-  states
-    .append("rect")
-    .attr("class", "background")
-    .attr("width", width + "px")
-    .attr("height", height + "px");
+  // states
+  //   .append("rect")
+  //   .attr("class", "background")
+  //   .attr("width", width + "px")
+  //   .attr("height", height + "px");
 
   //geoJson데이터를 파싱하여 지도그리기
   d3.json("korea.json", function (json) {
@@ -61,7 +61,9 @@ function drawMap(target) {
       .attr("dy", ".35em")
       .text(function (d) {
         // return "";
-        return d.properties.name;
+        let name = d.properties.name;
+        name += " " + targetDict[d.properties.name].cnt;
+        return name;
       });
   });
 

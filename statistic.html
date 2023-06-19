@@ -1,110 +1,68 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>통계화면 나누기</title>
     <style>
-        .image {
-            display: grid;
-            place-items: center;
-            text-align: center;
-            min-height: 100vh;
-            padding: 50px;
-            float: left;
-        }
+      @import "css/korea.css";
 
-        .table {
-            display: grid;
-            place-items: center;
-            text-align: center;
-            min-height: 100vh;
-            width: 50%;
-            float: right;
-            padding: 50px;
-            font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
-            font-size: 25px;
-            /* box-sizing: border-box; */
-        }
-        .table td {
-            padding : 25px
-        }
-        .table caption {
-            padding : 25px;
-            border-bottom : 3px solid #000000;
-        }
+      .image {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        min-height: 100vh;
+        padding: 50px;
+        float: left;
+      }
 
+      .statUl {
+        list-style: none;
+      }
+
+      .statTable {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        min-height: 100vh;
+        width: 50%;
+        float: center;
+        padding-left: 250px;
+        font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
+        font-size: 25px;
+        /* box-sizing: border-box; */
+      }
+      .statTable tr {
+        border-bottom: 0px;
+      }
+      .statTable td {
+        padding: 25px;
+      }
+      .statTable tbody td {
+        padding: 10px;
+      }
+      .statTable caption {
+        padding: 25px;
+        border-bottom: 3px solid #000000;
+      }
     </style>
-</head>
-<script src="d3.js"></script>
+  </head>
+  <body>
+    <ul class="statUl">
+      <li><div id="container" class="container"></div></li>
+      <li>
+        <div class="statTable">
+          <table>
+            <caption id="currentArea">
+              전국
+            </caption>
+            <tbody id="statTbody"></tbody>
+          </table>
+        </div>
+      </li>
+    </ul>
+
+    <script src="d3.js"></script>
     <script src="korea.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const tbody = document.querySelector(".table tbody");
-        const rows = Array.from(tbody.rows);
-
-        rows.sort((a, b) => {
-            const aValue = parseInt(a.cells[2].textContent);
-            const bValue = parseInt(b.cells[2].textContent);
-            return bValue - aValue;
-        });
-
-        rows.forEach(row => {
-            tbody.appendChild(row);
-        });
-    });
-</script>
-
-<body>
-    <div class="image">
-        <!-- <img src="icons/Statistics2.png" alt="Image"> -->
-        <div id="container"></div>
-    </div>
-    <div class="table">
-        <table>
-            <caption>부산</caption>
-            <tbody>
-                <tr align="center">
-                    <th>1.</th>
-                    <td>중구</td>
-                    <td>185</td>
-                </tr>
-                <tr align="center">
-                    <th>2.</th>
-                    <td>동구</td>
-                    <td>200</td>
-                </tr>
-                <tr align="center">
-                    <th>3.</th>
-                    <td>동래구</td>
-                    <td>300</td>
-                </tr>
-                <tr align="center">
-                    <th>4.</th>
-                    <td>진구</td>
-                    <td>50</td>
-                <tr align="center">
-                    <th>5.</th>
-                    <td>북구</td>
-                    <td>120</td>
-                </tr>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-
+    <script src="stat.js"></script>
+  </body>
 </html>
-
-<!-- <script>
-    var serverData = [];
-    function renderTable(id, dataList) {
-        var size = dataList.length;
-        var trList = "";
-        for (var i = 0; i < size; i++) {
-            trList += toDOM(dataList[i]);
-        }
-        document.querySelector("#" + id + " tbody").innerHTML = trList;
-    }
-</script> -->
-<!-- 순서 및 무더위쉼터 개수 데이터  -->

@@ -1,7 +1,7 @@
 document.write('<script src="js/shelter.js"></script>')
 
 const markerImageSize = new kakao.maps.Size(24, 35);
-const markerImage = new kakao.maps.MarkerImage("icons/marker.png", markerImageSize);
+const markerImage = new kakao.maps.MarkerImage("../icons/marker.png", markerImageSize);
 
 let map = null;
 let ps = null;
@@ -15,20 +15,122 @@ let markers_sht = [];
 
 let circle = null;
 
-function generateShelterMarker(shelters){
 
-  if(shelters.length!=0){
-      //markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-    shelters.forEach((shelter) => {
-      var position = new kakao.maps.LatLng(shelter.la, shelter.lo)
-      var marker = new kakao.maps.Marker({
-        position: position, // 마커의 위치
-        image: markerImage,
-      });
-      marker.setMap(map); // 지도 위에 마커를 표출합니다
-      markers_sht.push(marker); // 배열에 생성된 마커를 추가합니다
+//무더위 쉼터 마크 표시하는 함수
+function generateShelterMarker(shelters, islocationSearch = false){
+  menuEl = document.getElementById("menu_wrap"),
+  listEl = document.getElementById("placesList");
+  fragment = document.createDocumentFragment(),
+  bounds = new kakao.maps.LatLngBounds(),
+  listStr = "";
+
+  for(i = 0 ; i < shelters.length ; i++){
+    var shelter = shelters[i];
+    var placePosition = new kakao.maps.LatLng(shelter.la, shelter.lo);
+
+    var marker = new kakao.maps.Marker({
+      position: placePosition, // 마커의 위치
+      image: markerImage,
     });
+
+      //무더위쉼터의 인포 이벤트
+    (function (marker, title) {
+        kakao.maps.event.addListener(marker, "mouseover", function () {
+          displayInfowindow(marker, title);
+        });
+        kakao.maps.event.addListener(marker, "mouseout", function () {
+          infowindow.close();
+        });
+        if(islocationSearch){
+          itemEl.onmouseover = function () {
+            displayInfowindow(marker, title);
+          };
+
+          itemEl.onmouseout = function () {
+            infowindow.close();
+        };
+      }
+    })(marker,shelter.restname);
+
+    marker.setMap(map); // 지도 위에 마커를 표출합니다
+    markers_sht.push(marker); // 배열에 생성된 마커를 추가합니다
+
+    
+    if(islocationSearch){
+      var itemEl = getListShelter(shelters[i]); // 검색 결과 항목 Element를 생성합니다
+      bounds.extend(placePosition);
+      fragment.appendChild(itemEl);
+    }
   }
+  if(islocationSearch){
+    listEl.appendChild(fragment);
+    menuEl.scrollTop = 0;
+    map.setBounds(bounds);  
+  }
+  
+  /*
+    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+    // LatLngBounds 객체에 좌표를 추가합니다
+    bounds.extend(placePosition);
+
+    // 마커와 검색결과 항목에 mouseover 했을때
+    // 해당 장소에 인포윈도우에 장소명을 표시합니다
+    // mouseout 했을 때는 인포윈도우를 닫습니다
+    (function (marker, title) {
+      kakao.maps.event.addListener(marker, "mouseover", function () {
+        displayInfowindow(marker, title);
+      });
+
+      kakao.maps.event.addListener(marker, "mouseout", function () {
+        infowindow.close();
+      });
+
+      itemEl.onmouseover = function () {
+        displayInfowindow(marker, title);
+      };
+
+      itemEl.onmouseout = function () {
+        infowindow.close();
+      };
+    })(marker, places[i].place_name);
+
+    fragment.appendChild(itemEl);
+  }
+
+  // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+  listEl.appendChild(fragment);
+  menuEl.scrollTop = 0;
+
+  // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+  map.setBounds(bounds);
+  */
+
+  // if(shelters.length!=0){
+  //     //markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+  //   shelters.forEach((shelter) => {
+  //     console.log(shelter)
+      
+
+  //     var position = new kakao.maps.LatLng(shelter.la, shelter.lo)
+  //     var marker = new kakao.maps.Marker({
+  //       position: position, // 마커의 위치
+  //       image: markerImage,
+  //     });
+
+  //     //무더위쉼터의 인포 이벤트
+  //     kakao.maps.event.addListener(marker, "mouseover", function () {
+  //       displayInfowindow(marker, shelter.restname);
+  //     });
+  //     kakao.maps.event.addListener(marker, "mouseout", function () {
+  //       infowindow.close();
+  //     });
+
+  //     marker.setMap(map); // 지도 위에 마커를 표출합니다
+  //     markers_sht.push(marker); // 배열에 생성된 마커를 추가합니다
+  //   });    
+  // }
+  endLoading();
+
 }
 
 function generateMap(lat, lng) {
@@ -107,14 +209,14 @@ function placesSearchCB(data, status, pagination) {
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
-   var listEl = document.getElementById("placesList"),
     menuEl = document.getElementById("menu_wrap"),
+    listEl = document.getElementById("placesList");
     fragment = document.createDocumentFragment(),
     bounds = new kakao.maps.LatLngBounds(),
     listStr = "";
 
   // 검색 결과 목록에 추가된 항목들을 제거합니다
-  removeAllChildNods(listEl);
+  removeAllChildNods();
 
   // 지도에 표시되고 있는 마커를 제거합니다
   removeMarker();
@@ -239,8 +341,14 @@ function addMarker(position, idx, title) {
   return marker;
 }
 
-// 지도 위에 표시되고 있는 마커를 모두 제거합니다
+// 지도 위에 표시되고 있는 마커및 원을 모두 제거합니다
 function removeMarker() {
+  if(markers_sht.length > 0){
+    removeMarkerShelter();
+  }
+  if(circle != null) {
+    circle.setMap(null)
+  }
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
@@ -294,8 +402,82 @@ function displayInfowindow(marker, title) {
 }
 
 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-function removeAllChildNods(el) {
+function removeAllChildNods() {
+   var el = document.getElementById("placesList");
   while (el.hasChildNodes()) {
     el.removeChild(el.lastChild);
   }
+  var paginationEl = document.getElementById("pagination");
+  // 기존에 추가된 페이지번호를 삭제합니다
+  while (paginationEl.hasChildNodes()) {
+    paginationEl.removeChild(paginationEl.lastChild);
+  }
 }
+
+
+//지역코드로 검색시작
+function setlocationShelters(code){
+  removeMarkerShelter();
+  var results = []
+  var lats = []
+  var lons = []
+  allShelters.forEach((sht) =>{
+    if( sht.areaCd.slice(0,5) == code ){
+      lats.push(sht.la)
+      lons.push(sht.lo)
+      results.push(sht)
+    }
+  });
+  // 이동할 위도 경도 위치를 생성합니다 
+  var moveLatLon = new kakao.maps.LatLng(calculateAverage(lats), calculateAverage(lons));
+    
+  // 지도 중심을 이동시킵니다
+  map.setCenter(moveLatLon); 
+  map.setLevel(7);
+  generateShelterMarker(results)  
+  endLoading();
+
+}
+
+//검색명에 대한 지역코드 찾아 검색시작
+function locationSearch(){
+  var sido = document.getElementById('combo1').value;
+  var sgg = document.getElementById('combo2').value;
+  if(sido == '강원도'){
+    sido = '강원특별자치도'
+  }
+  var location = sido + " " + sgg;
+  let url = locationBase + location;
+  startLoading();
+    fetch(url)
+      .then((res) => res.json())
+      .then((resJson) => {
+        code = String(resJson.StanReginCd[1].row[0]['sido_cd']) + String (resJson.StanReginCd[1].row[0]['sgg_cd'])
+        setlocationShelters(code)
+      });
+}
+
+
+function calculateAverage(list) {
+  var sum = 0;
+  
+  // 리스트의 모든 값을 더함
+  for (var i = 0; i < list.length; i++) {
+    sum += list[i];
+  }
+  
+  // 평균을 계산하여 반환
+  return sum / list.length;
+}
+
+  // 검색 시작 시 로딩 스피너를 표시
+function startLoading(){
+  document.getElementById("loading-spinner").style.zIndex = "2";
+
+}
+
+function endLoading(){
+  document.getElementById("loading-spinner").style.zIndex = "-1";
+
+}
+

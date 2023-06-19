@@ -28,8 +28,26 @@ folderButton.addEventListener("click", function () {
   location_search.addEventListener("click", function () {
     naming_input.style.display = "none"
     location_input.style.display = "flex"
+    removeMarker();
+   removeAllChildNods();
+
   });
   naming_search.addEventListener("click", function () {
     naming_input.style.display = "flex"
     location_input.style.display = "none"
+    removeMarker();
+    removeAllChildNods();
   });
+
+  // 엔터 키 이벤트 리스너
+document.getElementById("keyword").addEventListener("keyup", function(event) {
+  // 엔터 키의 keyCode는 13입니다.
+  if (event.key === "Enter") {
+    event.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+    
+    // 버튼 클릭 동작 실행
+    document.getElementById("searchButton").click();
+  }
+});
+
+

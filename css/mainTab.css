@@ -228,13 +228,24 @@ body{
     #placesList .info .tel {
       color: #009900;
     }
-    #placesList .item .markerbg {
+
+    #placesList .item .marker {
       float: left;
       position: absolute;
       width: 36px;
       height: 37px;
       margin: 10px 0 0 10px;
       background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
+    }
+
+
+    #placesList .item .marker_y {
+      float: left;
+      position: absolute;
+      width: 36px;
+      height: 37px;
+      margin: 10px 0 0 10px;
+      background: url('../icons/marker_y.png');
     }
     #placesList .item .marker_1 {
       background-position: 0 -10px;
@@ -296,4 +307,24 @@ body{
     }
     #placesList {
         padding: 2px;
-      }
+    }
+
+    #loading-spinner {
+      position: absolute;
+      top:50%;
+      left: 50%;
+
+      border: 16px solid #f3f3f3;
+      border-top: 16px solid #3498db;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+      background-color: #A000;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+          

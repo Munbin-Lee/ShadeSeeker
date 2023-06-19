@@ -1,5 +1,7 @@
 const base = "https://apis.data.go.kr/1741000/HeatWaveShelter2/getHeatWaveShelterList2?";
-const serviceKey =
+const serviceKey = 
+  "Ra8KnDXQFqkPHWYJuYj5WIo0zbXUNa%2BIs8938WOplm3Y5s81nwmWLRbeCO5yvf29u5CQPiSv2tU%2FEFSe8alD5Q%3D%3D";
+const serviceKey2 =
   "%2FPyXD53d13dDxi79kkPHb%2BqLRlHbhwyyM7fFVHAUMVAm%2F2UI8TbN%2BolzR10R2weyurRdimRWgXeCGt1Tdos%2B%2FQ%3D%3D";
 const numOfRows = "1000";
 const type = "json";
@@ -33,6 +35,9 @@ function getShelterInfo() {
         shelters.forEach((shelter) => {
           allShelters.push(shelter);
         });
+      }).catch(error => {
+        // 네트워크 오류나 다른 예외를 처리하는 로직
+        console.log('Error:', error);
       });
   }
 }
@@ -51,29 +56,7 @@ function setNearbyShelters(lat,lon){
 }
 
 
-//지역코드로 검색시작
-function setlocationShelters(code){
-  var results = []
-  allShelters.forEach((sht) =>{
-    if( sht.areaCd.slice(0,5) == code ){
-      results.push(sht)
-    }
-  });
-  generateShelterMarker(results)
-}
-
-//검색명에 대한 지역코드 찾아 검색시작
-function getCode(location){
-  let url = locationBase + location;
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((resJson) => {
-        code = String(resJson.StanReginCd[1].row[sido_cd]) + String (resJson.StanReginCd[1].row[resJson.StanReginCd[1].row[sgg_cd]])
-        setlocationShelters(code)
-      });
-}
-
+//지도 상 거리 계산하는 함수
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371; // 지구 반지름 (단위: km)
 
@@ -93,4 +76,32 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
   const distance = earthRadius * c;
   return distance;
+}
+
+// 검색결과 항목을 Element로 반환하는 함수입니다
+function getListShelter(shelter) {
+  var el = document.createElement("li"),
+  marker_color = "y"  
+  itemStr =
+      '<span class="marker_' +
+      marker_color +
+      '"></span>' +
+      '<div class="info">' +
+      "   <h5>" +
+      shelter.restname +
+      "</h5>";
+
+  if (shelter.dtlAdres != '') {
+    itemStr += "    <span>" + shelter.dtlAdres + "</span>";
+  } else {
+    itemStr += "    <span>" + shelter.restaddr + "</span>" 
+
+  }
+
+  itemStr += '  <span class="tel">' + shelter.deptTelno + "</span>" + "</div>";
+
+  el.innerHTML = itemStr;
+  el.className = "item";
+
+  return el;
 }

@@ -17,6 +17,9 @@ fetch(locationJson)
       var cityName = Object.keys(city)[0]; // 도시 이름
       option.value = cityName;
       option.text = cityName;
+      if(cityName == '강원도'){
+        option.text = '강원특별자치도';
+      }
 
       combo1.appendChild(option);
     });

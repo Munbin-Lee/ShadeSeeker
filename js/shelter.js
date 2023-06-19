@@ -90,16 +90,9 @@ function getListShelter(shelter) {
       "   <h5>" +
       shelter.restname +
       "</h5>";
-
-  if (shelter.dtlAdres != '') {
-    itemStr += "    <span>" + shelter.dtlAdres + "</span>";
-  } else {
-    itemStr += "    <span>" + shelter.restaddr + "</span>" 
-
-  }
-
-  itemStr += '  <span class="tel">' + shelter.deptTelno + "</span>" + "</div>";
-
+  itemStr += "    <span>" + (shelter.restaddr) + "</span>"
+  itemStr += '  <span class="tel">' + (shelter.mngdptCd) + "</span>" + "</div>";
+  
   el.innerHTML = itemStr;
   el.className = "item";
 

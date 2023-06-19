@@ -26,6 +26,7 @@ function generateShelterMarker(shelters, islocationSearch = false){
 
   for(i = 0 ; i < shelters.length ; i++){
     var shelter = shelters[i];
+    var itemEl = getListShelter(shelters[i]); // 검색 결과 항목 Element를 생성합니다
     var placePosition = new kakao.maps.LatLng(shelter.la, shelter.lo);
 
     var marker = new kakao.maps.Marker({
@@ -42,6 +43,7 @@ function generateShelterMarker(shelters, islocationSearch = false){
           infowindow.close();
         });
         if(islocationSearch){
+          
           itemEl.onmouseover = function () {
             displayInfowindow(marker, title);
           };
@@ -57,7 +59,6 @@ function generateShelterMarker(shelters, islocationSearch = false){
 
     
     if(islocationSearch){
-      var itemEl = getListShelter(shelters[i]); // 검색 결과 항목 Element를 생성합니다
       bounds.extend(placePosition);
       fragment.appendChild(itemEl);
     }
@@ -68,67 +69,6 @@ function generateShelterMarker(shelters, islocationSearch = false){
     map.setBounds(bounds);  
   }
   
-  /*
-    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-    // LatLngBounds 객체에 좌표를 추가합니다
-    bounds.extend(placePosition);
-
-    // 마커와 검색결과 항목에 mouseover 했을때
-    // 해당 장소에 인포윈도우에 장소명을 표시합니다
-    // mouseout 했을 때는 인포윈도우를 닫습니다
-    (function (marker, title) {
-      kakao.maps.event.addListener(marker, "mouseover", function () {
-        displayInfowindow(marker, title);
-      });
-
-      kakao.maps.event.addListener(marker, "mouseout", function () {
-        infowindow.close();
-      });
-
-      itemEl.onmouseover = function () {
-        displayInfowindow(marker, title);
-      };
-
-      itemEl.onmouseout = function () {
-        infowindow.close();
-      };
-    })(marker, places[i].place_name);
-
-    fragment.appendChild(itemEl);
-  }
-
-  // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
-  listEl.appendChild(fragment);
-  menuEl.scrollTop = 0;
-
-  // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-  map.setBounds(bounds);
-  */
-
-  // if(shelters.length!=0){
-  //     //markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-  //   shelters.forEach((shelter) => {
-  //     console.log(shelter)
-      
-
-  //     var position = new kakao.maps.LatLng(shelter.la, shelter.lo)
-  //     var marker = new kakao.maps.Marker({
-  //       position: position, // 마커의 위치
-  //       image: markerImage,
-  //     });
-
-  //     //무더위쉼터의 인포 이벤트
-  //     kakao.maps.event.addListener(marker, "mouseover", function () {
-  //       displayInfowindow(marker, shelter.restname);
-  //     });
-  //     kakao.maps.event.addListener(marker, "mouseout", function () {
-  //       infowindow.close();
-  //     });
-
-  //     marker.setMap(map); // 지도 위에 마커를 표출합니다
-  //     markers_sht.push(marker); // 배열에 생성된 마커를 추가합니다
-  //   });    
-  // }
   endLoading();
 
 }
@@ -434,7 +374,7 @@ function setlocationShelters(code){
   // 지도 중심을 이동시킵니다
   map.setCenter(moveLatLon); 
   map.setLevel(7);
-  generateShelterMarker(results)  
+  generateShelterMarker(results,true)  
   endLoading();
 
 }

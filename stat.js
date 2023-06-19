@@ -38,11 +38,17 @@ function updateTable() {
 
   innerHTML = "<tr align='center'><td>합계</td><td>" + sum + "</td></tr>";
   for (let arr of sortable) {
+    let per = (arr[1] / sum) * 1000;
+    per = Math.round(per);
+    per /= 10;
     innerHTML +=
       "<tr align='center' onclick=onClickStatElement(this)><td class='statCnt'>" +
       arr[0] +
       "</td><td>" +
       arr[1] +
+      " (" +
+      per +
+      "%)" +
       "</td></tr>";
   }
   statTbody.innerHTML = innerHTML;

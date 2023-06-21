@@ -1,86 +1,104 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <style>
-        @import url(css/mainTab.css);
+      @import url(css/mainTab.css);
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="side_frame" id="side_frame">
-        <div class="foldableBar" id="foldableBar">
-            <div class="searchingTab">
-                <ul class="searchingTab" id="searchingTab">
-                    <li>
-                        <input type="radio" name="search_tab" class="search_tab_btn" id="naming_search" checked />
-                        <label for="naming_search">주변 시설로 검색</label>
-                    </li>
-                    <li>
-                        <input type="radio" name="search_tab" class="search_tab_btn" id="location_search" />
-                        <label for="location_search">지역으로 검색</label>
-                    </li>
-                </ul>
-            </div>
-            <div class="search-container" id="keyword_search_input">
-                <input type="text" id="keyword" size="15" placeholder="검색" />
-                <button onclick="searchPlaces()" type="submit" id="searchButton"><img src="icons/search.png"
-                        width="10px" height="10px" /></button>
-            </div>
-            <div class="search-container" id="location_search_input" style="display: none;">
-                <select class="locationCombo" id="combo1"></select>
-                <select class="locationCombo" id="combo2"></select>
-                <button type="submit" id="searchButton2" onclick="locationSearch()"
-                ><img src="icons/search.png" width="10px" height="10px" /></button>
-            </div>
-            <div class="search_result_div">
-                <div class="menu_wrap" id="menu_wrap">
-                    <ul id="placesList"></ul>
-                    <div id="pagination"></div>
-                </div>
-            </div>
+      <div class="foldableBar" id="foldableBar">
+        <div class="searchingTab">
+          <ul class="searchingTab" id="searchingTab">
+            <li>
+              <input type="radio" name="search_tab" class="search_tab_btn" id="naming_search" checked />
+              <label for="naming_search">주변 시설로 검색</label>
+            </li>
+            <li>
+              <input type="radio" name="search_tab" class="search_tab_btn" id="location_search" />
+              <label for="location_search">지역으로 검색</label>
+            </li>
+          </ul>
         </div>
-        <button class="folderButton" id="folderButton">
-            <img id="buttonIcon" src="icons/left-arrow.png" width="10px;" height="10px;" />
-        </button>
-    </div>
-    <div class="myMap" id="myMap">
-        <div id="map" style="width: 100%; height: 100%"></div>
-        <div class="weather"><img id="weatherImg" src="icons/cloudy.png" /><span id="weatherText"> -- °C</span></div>
-    </div>
-    <div class="markerVisible">
-        <div>
-            <input type="checkbox" class="markerVisibleCkbox" id="red" checked />
-            <label for="red"><span><img width="15px" height="15px" src="icons/marker_r.png"> 노인시설</span></label>
+        <div class="search-container" id="keyword_search_input">
+          <input type="text" id="keyword" size="15" placeholder="검색" />
+          <button onclick="searchPlaces()" type="submit" id="searchButton">
+            <img src="icons/search.png" width="10px" height="10px" />
+          </button>
         </div>
-        <div>
-            <input type="checkbox" class="markerVisibleCkbox" id="green" checked />
-            <label for="green"><span><img width="15px" height="15px" src="icons/marker_g.png"> 회관</span></label>
+        <div class="search-container" id="location_search_input" style="display: none">
+          <select class="locationCombo" id="combo1"></select>
+          <select class="locationCombo" id="combo2"></select>
+          <button type="submit" id="searchButton2" onclick="locationSearch()">
+            <img src="icons/search.png" width="10px" height="10px" />
+          </button>
         </div>
-        <div>
-            <input type="checkbox" class="markerVisibleCkbox" id="blue" checked />
-            <label for="blue"><span><img width="15px" height="15px" src="icons/marker_b.png"> 공원</span></label>
-        </div>
-        <div>
-            <input type="checkbox" class="markerVisibleCkbox" id="yellow" checked />
-            <label for="yellow"><span><img width="15px" height="15px" src="icons/marker_y.png"> 기타</span></label>
+        <div class="search_result_div">
+          <div class="menu_wrap" id="menu_wrap">
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
+          </div>
         </div>
       </div>
+      <button class="folderButton" id="folderButton">
+        <img id="buttonIcon" src="icons/left-arrow.png" width="10px;" height="10px;" />
+      </button>
+    </div>
+
+    <div class="myMap" id="myMap">
+      <div id="map" style="width: 100%; height: 100%"></div>
+      <div class="fakeWeather" id="fakeWeatherBox">
+        <img id="fakeWeather" src="icons/weather.png" width="300px" style="opacity: 0" />
+      </div>
+      <div class="weather" id="weatherBox">
+        <img id="weatherImg" src="icons/cloudy.png" /><span id="weatherText"> -- °C</span>
+      </div>
+    </div>
+    <div class="markerVisible">
+      <div>
+        <input type="checkbox" class="markerVisibleCkbox" id="red" checked />
+        <label for="red"
+          ><span><img width="15px" height="15px" src="icons/marker_r.png" /> 노인시설</span></label
+        >
+      </div>
+      <div>
+        <input type="checkbox" class="markerVisibleCkbox" id="green" checked />
+        <label for="green"
+          ><span><img width="15px" height="15px" src="icons/marker_g.png" /> 회관</span></label
+        >
+      </div>
+      <div>
+        <input type="checkbox" class="markerVisibleCkbox" id="blue" checked />
+        <label for="blue"
+          ><span><img width="15px" height="15px" src="icons/marker_b.png" /> 공원</span></label
+        >
+      </div>
+      <div>
+        <input type="checkbox" class="markerVisibleCkbox" id="yellow" checked />
+        <label for="yellow"
+          ><span><img width="15px" height="15px" src="icons/marker_y.png" /> 기타</span></label
+        >
+      </div>
+    </div>
     <div id="loading-spinner"></div>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=763b135055f168235383744f34de7a79&libraries=services"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
     <script src="js/weather.js"></script>
     <script src="js/map.js"></script>
     <script src="js/geolocation.js"></script>
-    
+
     <script src="js/mainTab.js"></script>
     <script>
-        getPositionAndGenerateMap();
-        getShelterInfo();
+      getPositionAndGenerateMap();
+      getShelterInfo();
     </script>
     <script src="js/combo.js"></script>
-</body>
-
+    <script src="js/mapTab.js"></script>
+  </body>
 </html>

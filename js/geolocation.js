@@ -1,6 +1,8 @@
+let lat, lng;
+
 function success({ coords }) {
-  const lat = coords.latitude;
-  const lng = coords.longitude;
+  lat = coords.latitude;
+  lng = coords.longitude;
   console.log("user position:", lat, lng);
   generateMap(lat, lng);
 }
